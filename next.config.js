@@ -2,12 +2,9 @@
 
 const nextConfig = {
   output: "export",
-  basePath: "/jinbeistudio",
+  basePath: "jinbeistudio",
   experimental: {
     appDir: true,
-  },
-  images: {
-    unoptimized: true,
   },
 };
 

@@ -11,7 +11,7 @@ export default function Banner() {
       </div>
       <div className="bg-blue opacity-20  height-full absolute min-w-full h-[609px] z-10"></div>
       <video className="w-full h-[609px] object-cover" autoPlay loop muted>
-        <source src="/videos/sea-banner.mp4" />
+        <source src="./videos/sea-banner.mp4" />
       </video>
     </div>
   );

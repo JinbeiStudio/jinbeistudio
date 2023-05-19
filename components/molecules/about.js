@@ -21,7 +21,7 @@ export default function About() {
       </div>
       <div className="bg-blue opacity-50  height-full absolute min-w-full h-[637px] z-10"></div>
       <video className="w-full object-cover h-[637px]" autoPlay loop muted>
-        <source src="/videos/water.mp4" />
+        <source src="./videos/water.mp4" />
       </video>
     </div>
   );

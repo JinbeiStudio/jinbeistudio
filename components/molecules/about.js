@@ -16,12 +16,12 @@ export default function About() {
           à vos différents projets.
         </p>
         <div className="mt-12">
-          <Button text={"Curriculum Vitae"} link={"/cv.pdf"} />
+          <Button text={"Curriculum Vitae"} link={"/documents/cv.pdf"} />
         </div>
       </div>
       <div className="bg-blue opacity-50  height-full absolute min-w-full h-[637px] z-10"></div>
       <video className="w-full object-cover h-[637px]" autoPlay loop muted>
-        <source src="/water.mp4" />
+        <source src="/videos/water.mp4" />
       </video>
     </div>
   );

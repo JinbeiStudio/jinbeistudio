@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Nav() {
   return (
     <div className="flex justify-between items-center h-full">
-      <Image src="/logo.png" alt="Logo" width="85" height="85" />
+      <Image src="/images/logo.png" alt="Logo" width="85" height="85" />
       <nav>
         <a className="px-3 uppercase text-sm" href="#accueil">
           Accueil

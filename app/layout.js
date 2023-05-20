@@ -11,7 +11,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="fr">
-      <body className={raleway.className}>{children}</body>
+      <body id="home" className={raleway.className}>
+        {children}
+      </body>
     </html>
   );
 }

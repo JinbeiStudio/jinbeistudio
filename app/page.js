@@ -11,7 +11,7 @@ export default function Home() {
         <Nav />
       </header>
       <main>
-        <section id="home" className="w-full">
+        <section className="w-full">
           <Banner />
         </section>
         <section id="services" className="container pt-40 pb-48 mx-auto max-w-4xl">

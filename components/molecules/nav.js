@@ -2,22 +2,22 @@ import Image from "next/image";
 
 export default function Nav() {
   return (
-    <div className="flex justify-between items-center h-full">
+    <div className="flex justify-between items-center h-full max-w-4xl mx-auto">
       <Image src="/images/logo.png" alt="Logo" width="85" height="85" />
       <nav>
-        <a className="px-3 uppercase text-sm" href="#accueil">
+        <a className="px-3 uppercase text-sm transition-colors hover:text-blue ease-in-out duration-400" href="#home">
           Accueil
         </a>
         <a className="px-3 uppercase text-sm" href="#services">
           Services
         </a>
-        <a className="px-3 uppercase text-sm" href="#apropos">
-          A propos
+        <a className="px-3 uppercase text-sm" href="#about">
+          À propos
         </a>
-        <a className="px-3 uppercase text-sm" href="#projets">
+        {/* <a className="px-3 uppercase text-sm" href="#projects">
           Projets
-        </a>
-        <a className="px-3 uppercase text-sm" href="#">
+        </a> */}
+        {/* <a className="px-3 uppercase text-sm" href="#">
           Équipe
         </a>
         <a className="px-3 uppercase text-sm" href="#">
@@ -25,7 +25,7 @@ export default function Nav() {
         </a>
         <a className="px-3 uppercase text-sm" href="#">
           Témoignages
-        </a>
+        </a> */}
       </nav>
     </div>
   );

@@ -2,12 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-
-}
-
-@media (prefers-color-scheme: light) {
-}
-
-body {
+html {
+  --scroll-behavior: smooth !important;
+  scroll-behavior: smooth !important;
 }

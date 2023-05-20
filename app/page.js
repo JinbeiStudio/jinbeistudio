@@ -7,20 +7,20 @@ import Projects from "@/components/molecules/projects";
 export default function Home() {
   return (
     <>
-      <header className="container justify-center h-24 mx-auto max-w-4xl">
+      <header className="justify-center h-24 mx-auto sticky top-0 bg-white z-50 w-full">
         <Nav />
       </header>
       <main>
-        <section className="w-full">
+        <section id="home" className="w-full">
           <Banner />
         </section>
-        <section className="container pt-40 pb-48 mx-auto max-w-4xl">
+        <section id="services" className="container pt-40 pb-48 mx-auto max-w-4xl">
           <Services />
         </section>
-        <section className="w-full">
+        <section id="about" className="w-full">
           <About />
         </section>
-        {/* <section className="container py-32 mx-auto max-w-4xl">
+        {/* <section id="projects" className="container py-32 mx-auto max-w-4xl">
           <Projects />
         </section> */}
       </main>

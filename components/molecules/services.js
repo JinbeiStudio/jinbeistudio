@@ -9,7 +9,7 @@ export default function Services(props) {
   const { inViewport } = useInViewport(myRef, {}, { disconnectOnLeave: false });
 
   return (
-    <div id="services">
+    <div>
       <Title title={"Mes \n services"} />
       <div className="flex justify-between">
         <div className={inViewport ? "mt-6 transition transform translate-y-10 duration-1000 origin-center ease-in-out" : "opacity-0"}>

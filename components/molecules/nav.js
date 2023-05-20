@@ -8,22 +8,22 @@ export default function Nav() {
         <a className="px-3 uppercase text-sm transition-colors hover:text-blue ease-in-out duration-400" href="#home">
           Accueil
         </a>
-        <a className="px-3 uppercase text-sm" href="#services">
+        <a className="px-3 uppercase text-sm transition-colors hover:text-blue ease-in-out duration-400" href="#services">
           Services
         </a>
-        <a className="px-3 uppercase text-sm" href="#about">
+        <a className="px-3 uppercase text-sm transition-colors hover:text-blue ease-in-out duration-400" href="#about">
           À propos
         </a>
-        {/* <a className="px-3 uppercase text-sm" href="#projects">
+        {/* <a className="px-3 uppercase text-sm transition-colors hover:text-blue ease-in-out duration-400" href="#projects">
           Projets
         </a> */}
-        {/* <a className="px-3 uppercase text-sm" href="#">
+        {/* <a className="px-3 uppercase text-sm transition-colors hover:text-blue ease-in-out duration-400" href="#">
           Équipe
         </a>
-        <a className="px-3 uppercase text-sm" href="#">
+        <a className="px-3 uppercase text-sm transition-colors hover:text-blue ease-in-out duration-400" href="#">
           Tarifs
         </a>
-        <a className="px-3 uppercase text-sm" href="#">
+        <a className="px-3 uppercase text-sm transition-colors hover:text-blue ease-in-out duration-400" href="#">
           Témoignages
         </a> */}
       </nav>

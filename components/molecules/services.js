@@ -11,7 +11,7 @@ export default function Services(props) {
   return (
     <div>
       <Title title={"Mes \n services"} />
-      <div className="flex justify-between">
+      <div className="flex justify-between max-md:flex-wrap">
         <div className={inViewport ? "mt-6 transition transform translate-y-10 duration-1000 origin-center ease-in-out" : "opacity-0"}>
           <Line color={"blue"} />
           <h3 ref={myRef} className="uppercase tracking-widest">

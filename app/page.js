@@ -14,15 +14,15 @@ export default function Home() {
         <section className="w-full">
           <Banner />
         </section>
-        <section id="services" className="container pt-40 pb-48 mx-auto max-w-4xl">
+        <section id="services" className="container pt-20 pb-28 sm:pt-40 sm:pb-48 mx-auto max-w-4xl max-lg:px-8">
           <Services />
         </section>
         <section id="about" className="w-full">
           <About />
         </section>
-        {/* <section id="projects" className="container py-32 mx-auto max-w-4xl">
+        <section id="projects" className="container py-24 mx-auto max-w-4xl px-8 lg:px-0">
           <Projects />
-        </section> */}
+        </section>
       </main>
     </>
   );

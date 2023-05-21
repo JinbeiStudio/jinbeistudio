@@ -9,8 +9,8 @@ export default function Banner() {
           <h1 className="text-white uppercase text-3xl mt-4 font-semibold tracking-widest text-center">Développeur Fullstack</h1>
         </div>
       </div>
-      <div className="bg-blue opacity-20  height-full absolute min-w-full h-[609px] z-10"></div>
-      <video className="w-full h-[609px] object-cover" autoPlay loop muted>
+      <div className="bg-blue opacity-20  height-full absolute min-w-full h-[450px] sm:h-[609px] z-10"></div>
+      <video className="w-full h-[450px] sm:h-[609px] object-cover" autoPlay loop muted>
         <source src="./videos/sea-banner.mp4" />
       </video>
     </div>

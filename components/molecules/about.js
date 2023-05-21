@@ -6,7 +6,7 @@ import Button from "../atoms/button";
 export default function About() {
   return (
     <div className="h-[637px] relative flex justify-center">
-      <div className="absolute top-[60px] sm:top-[125px] w-full max-w-4xl z-20 max-lg:px-8">
+      <div className="absolute top-[60px] sm:top-[125px] w-full max-w-5xl z-20 max-lg:px-8">
         <Line color={"white"} />
         <Title color={"white"} title={"Jinbei \n Studio"} />
         <p className="text-white mt-8 max-w-2xl font-light">

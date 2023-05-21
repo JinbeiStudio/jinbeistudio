@@ -6,6 +6,8 @@ import Slider from "react-slick";
 import ImageSlider from "../atoms/imageslider";
 import { NextArrowSlider, PrevArrowSlider } from "../atoms/arrowslider";
 import projects1 from "../../dictionaries/projects1.json";
+import projects2 from "../../dictionaries/projects2.json";
+import projects3 from "../../dictionaries/projects3.json";
 
 export default function Projects() {
   const settings = {
@@ -43,7 +45,37 @@ export default function Projects() {
           <div className="mt-3">
             <Line color={"blue"} />
           </div>
-          <h3 className="uppercase font-semibold tracking-widest text-2xl ml-4">Sites web vitrine</h3>
+          <h3 className="uppercase font-semibold tracking-widest text-2xl ml-4">Sites e-commerce</h3>
+        </div>
+        <div className="mt-4">
+          <Slider {...settings}>
+            {projects2.map(function (value, index) {
+              return <ImageSlider key={index + value.alt} alt={value.alt} src={value.src} link={value.link} />;
+            })}
+          </Slider>
+        </div>
+      </article>
+      <article className="mt-12">
+        <div className="flex mt-8">
+          <div className="mt-3">
+            <Line color={"blue"} />
+          </div>
+          <h3 className="uppercase font-semibold tracking-widest text-2xl ml-4">Applications web & mobile</h3>
+        </div>
+        <div className="mt-4">
+          <Slider {...settings}>
+            {projects3.map(function (value, index) {
+              return <ImageSlider key={index + value.alt} alt={value.alt} src={value.src} link={value.link} />;
+            })}
+          </Slider>
+        </div>
+      </article>
+      <article className="mt-12">
+        <div className="flex">
+          <div className="mt-3">
+            <Line color={"blue"} />
+          </div>
+          <h3 className="uppercase font-semibold tracking-widest text-2xl ml-4">Sites vitrine</h3>
         </div>
         <div className="mt-4">
           <Slider {...settings}>

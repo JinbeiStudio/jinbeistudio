@@ -3,6 +3,7 @@ import Banner from "@/components/molecules/banner";
 import Services from "@/components/molecules/services";
 import About from "@/components/molecules/about";
 import Projects from "@/components/molecules/projects";
+import Footer from "@/components/molecules/footer";
 
 export default function Home() {
   return (
@@ -24,6 +25,9 @@ export default function Home() {
           <Projects />
         </section>
       </main>
+      <footer className="h-20 bg-blue w-full text-white shadow-[0px_0px_3px_1px_rgba(0,0,0,0.4)]">
+        <Footer />
+      </footer>
     </>
   );
 }

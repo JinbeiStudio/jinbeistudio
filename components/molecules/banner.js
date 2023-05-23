@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 export default function Banner() {
   return (
@@ -10,7 +10,7 @@ export default function Banner() {
         </div>
       </div>
       <div className="bg-blue opacity-20  height-full absolute min-w-full h-[450px] sm:h-[609px] z-10"></div>
-      <video className="w-full h-[450px] sm:h-[609px] object-cover" autoPlay loop muted>
+      <video className="w-full h-[450px] sm:h-[609px] object-cover" autoPlay loop muted playsinline>
         <source src="./videos/sea-banner.mp4" />
       </video>
     </div>

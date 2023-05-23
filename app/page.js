@@ -1,10 +1,11 @@
-import Nav from "@/components/molecules/nav";
-import Banner from "@/components/molecules/banner";
-import Services from "@/components/molecules/services";
-import About from "@/components/molecules/about";
-import Projects from "@/components/molecules/projects";
-import Footer from "@/components/molecules/footer";
-import Testimonies from "@/components/molecules/testimonies";
+import Nav from '@/components/molecules/nav';
+import Banner from '@/components/molecules/banner';
+import Services from '@/components/molecules/services';
+import About from '@/components/molecules/about';
+import Projects from '@/components/molecules/projects';
+import Footer from '@/components/molecules/footer';
+import Testimonies from '@/components/molecules/testimonies';
+import Contact from '@/components/molecules/contact';
 
 export default function Home() {
   return (
@@ -27,6 +28,9 @@ export default function Home() {
         </section>
         <section id="testimonies" className="w-full">
           <Testimonies />
+        </section>
+        <section id="contact" className="container py-24 mx-auto max-w-5xl px-8 lg:px-0">
+          <Contact />
         </section>
       </main>
       <footer className="h-20 bg-blue w-full text-white shadow-[0px_0px_3px_1px_rgba(0,0,0,0.4)]">

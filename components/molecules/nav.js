@@ -17,10 +17,9 @@ export default function Nav() {
         <a className="px-3 uppercase text-sm transition-colors hover:text-blue ease-in-out duration-400" href="#projects">
           Projets
         </a>
-        {/* 
-        <a className="px-3 uppercase text-sm transition-colors hover:text-blue ease-in-out duration-400" href="#">
+        <a className="px-3 uppercase text-sm transition-colors hover:text-blue ease-in-out duration-400" href="#testimonies">
           Témoignages
-        </a> */}
+        </a>
       </nav>
     </div>
   );

@@ -17,7 +17,7 @@ export default function Testimonies() {
         </div>
       </div>
       <div className="bg-blue opacity-80 height-full absolute min-w-full h-[1587px] max-sm:min-h-[3800px] max-lg:min-h-[2100px] z-10"></div>
-      <video className="w-full object-cover h-[1587px] max-sm:min-h-[3800px] max-lg:min-h-[2100px]" autoPlay loop muted playsinline>
+      <video className="w-full object-cover h-[1587px] max-sm:min-h-[3800px] max-lg:min-h-[2100px]" autoPlay loop muted playsInline>
         <source src="./videos/bubble.mp4" />
       </video>
     </div>

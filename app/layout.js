@@ -34,7 +34,7 @@ export const metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://jinbeistudio.fr/socialmediashare.png',
+        url: 'https://jinbeistudio.fr/images/socialmediashare.png',
         width: 1200,
         height: 630,
         alt: 'Jinbei Studio',

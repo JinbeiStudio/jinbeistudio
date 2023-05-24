@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 export default function Nav() {
   return (
@@ -19,6 +19,9 @@ export default function Nav() {
         </a>
         <a className="px-3 uppercase text-sm transition-colors hover:text-blue ease-in-out duration-400" href="#testimonies">
           Témoignages
+        </a>
+        <a className="px-3 uppercase text-sm transition-colors hover:text-blue ease-in-out duration-400" href="#contact">
+          Contact
         </a>
       </nav>
     </div>

@@ -8,6 +8,20 @@ import Testimonies from '@/components/molecules/testimonies';
 import Contact from '@/components/molecules/contact';
 
 export default function Home() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Corporation',
+    name: 'Jinbei Studio',
+    url: 'https://jinbeistudio.fr',
+    logo: 'https://jinbeistudio.fr/images/logo.png',
+    brand: 'Jinbei Studio',
+    founder: 'Julien Gabriel',
+    image: 'https://jinbeistudio.fr/images/logo.png',
+    description:
+      "Créé par Julien Gabriel, Jinbei Studio est une entreprise de création de sites internet et d'applications web et mobiles à Lannion en Bretagne. Jinbei Studio est là pour vous conseiller et vous apporter les solutions adaptées à vos différents projets.",
+    keywords: 'Jinbei Studio,Julien Gabriel,Développeur Fullstack,Développement Application Web,Développement Application Mobile,Création Site Web',
+  };
+
   return (
     <>
       <header className="justify-center h-24 mx-auto sticky top-0 bg-white z-50 w-full">
@@ -36,6 +50,7 @@ export default function Home() {
       <footer className="h-20 bg-blue w-full text-white shadow-[0px_0px_3px_1px_rgba(0,0,0,0.4)]">
         <Footer />
       </footer>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </>
   );
 }

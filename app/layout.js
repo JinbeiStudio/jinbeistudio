@@ -24,6 +24,24 @@ export const metadata = {
     'msapplication-TileColor': '#da532c',
   },
   manifest: '/images/favicon/site.webmanifest',
+  openGraph: {
+    title: 'Jinbei Studio',
+    description:
+      "Créé par Julien Gabriel, Jinbei Studio est une entreprise de création de sites internet et d'applications web et mobiles à Lannion en Bretagne.",
+    url: 'https://jinbeistudio.fr',
+    siteName: 'Jinbei Studio',
+    locale: 'fr-FR',
+    type: 'website',
+    images: [
+      {
+        url: 'https://jinbeistudio.fr/socialmediashare.png',
+        width: 1200,
+        height: 630,
+        alt: 'Jinbei Studio',
+        type: 'image/png',
+      },
+    ],
+  },
 };
 
 export default function RootLayout({ children }) {

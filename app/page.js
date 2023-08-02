@@ -6,6 +6,7 @@ import Projects from '@/components/molecules/projects';
 import Footer from '@/components/molecules/footer';
 import Testimonies from '@/components/molecules/testimonies';
 import Contact from '@/components/molecules/contact';
+import FooterPattern from '@/components/atoms/footerpattern';
 
 export default function Home() {
   const jsonLd = {
@@ -46,8 +47,9 @@ export default function Home() {
         <section id="contact" className="container py-24 mx-auto max-w-5xl px-8 lg:px-0">
           <Contact />
         </section>
+        <FooterPattern />
       </main>
-      <footer className="h-20 bg-blue w-full text-white shadow-[0px_0px_3px_1px_rgba(0,0,0,0.4)]">
+      <footer className="h-20 bg-blue w-full text-white">
         <Footer />
       </footer>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />

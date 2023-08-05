@@ -32,7 +32,7 @@ export default function Home() {
         <section className="w-full">
           <Banner />
         </section>
-        <section id="services" className="container pt-24 pb-32 sm:pt-40 sm:pb-48 mx-auto max-w-5xl max-lg:px-8">
+        <section id="services" className="container pt-24 pb-32 sm:pt-40 sm:pb-48 mx-auto max-w-5xl max-lg:px-8 min-h-[592px]">
           <Services />
         </section>
         <section id="about" className="w-full">

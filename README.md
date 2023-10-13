@@ -1,4 +1,4 @@
-jinbeistudio.fr
+jinbeistudio.com
 
 NextJS (React), Tailwind CSS
 

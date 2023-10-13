@@ -12,8 +12,8 @@ export default function Contact() {
       <p className="mt-8 font-semibold">N&apos;hésitez pas à me contacter</p>
       <p className="my-4">Jinbei Studio, Julien Gabriel</p>
       <address className="mt-4 flex flex-col">
-        <a className="font-semibold not-italic text-blue" href="mailto:juliengabriel@jinbeistudio.fr">
-          julien@jinbeistudio.fr
+        <a className="font-semibold not-italic text-blue" href="mailto:julien@jinbeistudio.com">
+          julien@jinbeistudio.com
         </a>
         <a className="font-semibold not-italic text-blue" href="tel:+33681880095">
           06 81 88 00 95

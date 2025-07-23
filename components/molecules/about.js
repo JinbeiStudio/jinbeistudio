@@ -1,7 +1,5 @@
-import Image from 'next/image';
 import Title from '../atoms/title';
 import Line from '../atoms/line';
-import Button from '../atoms/button';
 
 export default function About() {
   return (
@@ -15,9 +13,6 @@ export default function About() {
           afin d&apos;établir votre présence sur le net ? Jinbei Studio est là pour vous conseiller et vous apporter les solutions techniques adaptées
           à vos différents projets.
         </p>
-        <div className="mt-12">
-          <Button text={'Curriculum Vitae'} link={'/documents/cv.pdf'} />
-        </div>
       </div>
       <div className="bg-blue opacity-50  height-full absolute min-w-full h-[637px] z-10"></div>
       <video className="w-full object-cover h-[637px]" autoPlay loop muted playsInline>

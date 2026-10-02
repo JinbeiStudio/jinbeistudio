@@ -12,4 +12,8 @@ npm run dev     # http://localhost:3000
 npm run build   # static site in ./out
 ```
 
-Deployed to GitHub Pages by GitHub Actions on every push to `main`.
+## CI/CD
+
+- **Pull requests** (`ci.yml`): lint, build, typecheck, then Lighthouse on `/` and `/fr/` (accessibility and SEO must score ≥ 90; performance and best practices warn below 80/90).
+- **`main`** (`deploy.yml`): same checks, then deploys `out/` with GitHub's official Pages actions. Pages source must be set to *GitHub Actions*.
+- **Dependabot**: weekly grouped updates for npm and GitHub Actions.

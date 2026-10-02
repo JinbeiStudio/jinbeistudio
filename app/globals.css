@@ -1618,7 +1618,8 @@ h3 {
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 700;
   color: transparent;
-  -webkit-text-stroke: 1px rgb(127 220 239 / 0.25);
+  /* Bright enough outline to pass 3:1 contrast for large text, still reads as a watermark. */
+  -webkit-text-stroke: 1px rgb(127 220 239 / 0.45);
   white-space: nowrap;
   animation: marquee 50s linear infinite;
 }
@@ -1922,6 +1923,8 @@ h3 {
 
 .site-footer a {
   color: var(--cyan-soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 /* ---------- Motion preferences ---------- */

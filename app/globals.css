@@ -328,7 +328,8 @@ h3 {
 }
 
 /* Turns solid once scrolled (data-solid, set by DepthValue), then darkens with the ocean (--dive).
-   Tint and blur radius transition instead of opacity: WebKit doesn't fade backdrop-filter with opacity smoothly. */
+   Tint and blur radius transition instead of opacity: WebKit doesn't fade backdrop-filter with opacity smoothly.
+   The resting blur is tiny but non-zero: at exactly zero WebKit drops the layer at once, so fading out looked abrupt. */
 .site-header::before,
 .site-header::after {
   content: '';
@@ -339,10 +340,8 @@ h3 {
 
 .site-header::before {
   background-color: rgb(16 66 76 / 0);
-  background-image: linear-gradient(100deg, rgb(127 220 239 / 0.06), transparent 60%);
-  background-size: 0 0;
   border-bottom: 1px solid transparent;
-  backdrop-filter: blur(0) saturate(1);
+  backdrop-filter: blur(0.01px) saturate(1.001);
   transition:
     background-color 0.4s ease,
     border-color 0.4s ease,
@@ -352,7 +351,6 @@ h3 {
 
 .site-header[data-solid]::before {
   background-color: rgb(16 66 76 / 0.82);
-  background-size: auto;
   border-bottom-color: var(--line);
   box-shadow: 0 10px 30px -12px rgb(1 8 11 / 0.7);
   backdrop-filter: blur(14px) saturate(1.3);

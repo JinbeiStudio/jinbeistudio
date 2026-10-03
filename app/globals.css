@@ -249,6 +249,51 @@ h3 {
   }
 }
 
+/* Jellyfish: bioluminescent, so it keeps its glow instead of the deep-water dimming. */
+.sea-life__visitor--jellyfish {
+  opacity: 0.9;
+  filter: blur(calc(var(--blur) * 0.5)) drop-shadow(0 0 14px rgb(127 220 239 / 0.55));
+}
+
+.jelly-bell {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  animation: jelly-pulse 2.8s ease-in-out infinite;
+}
+
+.jelly-trail {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  animation: jelly-trail 2.8s ease-in-out infinite;
+}
+
+.jelly-lights circle {
+  animation: twinkle 2.8s ease-in-out infinite;
+}
+.jelly-lights circle:nth-child(2n) {
+  animation-delay: -1.4s;
+}
+
+@keyframes jelly-pulse {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  45% {
+    transform: scale(1.1, 0.86);
+  }
+}
+
+@keyframes jelly-trail {
+  0%,
+  100% {
+    transform: skewX(0) scaleY(1);
+  }
+  45% {
+    transform: skewX(-4deg) scaleY(1.04);
+  }
+}
+
 /* ---------- Depth meter ---------- */
 
 /* Scroll progress comes from DepthValue (--dive): Safari's scroll timelines proved unreliable. */

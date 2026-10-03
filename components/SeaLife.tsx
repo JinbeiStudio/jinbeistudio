@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { creatureWidth, creatures, type CreatureKind } from './Creatures';
+import { creatureAspect, creatureWidth, creatures, type CreatureKind } from './Creatures';
 
 type Visitor = {
   id: number;
@@ -19,16 +19,19 @@ const habitats: { section: string; kind: CreatureKind }[] = [
   { section: '#about', kind: 'turtle' },
   { section: '#experience', kind: 'shark' },
   { section: '#work', kind: 'manta' },
-  { section: '#skills', kind: 'manta' },
+  { section: '#skills', kind: 'orca' },
   { section: '#testimonials', kind: 'whale' },
-  { section: '#contact', kind: 'whale' },
+  { section: '#contact', kind: 'jellyfish' },
 ];
 
 const speed: Record<CreatureKind, [number, number]> = {
   shark: [18, 26],
+  blacktip: [18, 26],
   turtle: [28, 38],
   whale: [45, 60],
   manta: [24, 32],
+  orca: [22, 30],
+  jellyfish: [60, 80],
 };
 
 const between = (min: number, max: number) => min + Math.random() * (max - min);
@@ -88,12 +91,14 @@ export default function SeaLife() {
       const habitat = habitatAt(innerHeight * (0.5 + direction * 0.5)) ?? habitatAt(innerHeight * 0.5);
       if (!habitat) return;
       const duration = between(...speed[habitat.kind]);
+      const scale = between(0.85, 1.3);
+      const height = creatureWidth[habitat.kind] * scale * creatureAspect[habitat.kind];
       const next: Visitor = {
         id: now,
         kind: habitat.kind,
-        top: habitat.top,
+        top: habitat.top - height / 2,
         leftward: Math.random() < 0.5,
-        scale: between(0.85, 1.3),
+        scale,
         duration,
         head: duration * between(0.1, 0.25),
       };
@@ -115,7 +120,7 @@ export default function SeaLife() {
     <div className="sea-life" aria-hidden="true">
       <div
         key={visitor.id}
-        className={`sea-life__visitor ${visitor.leftward ? 'is-leftward' : ''}`}
+        className={`sea-life__visitor sea-life__visitor--${visitor.kind} ${visitor.leftward ? 'is-leftward' : ''}`}
         style={
           {
             top: visitor.top,

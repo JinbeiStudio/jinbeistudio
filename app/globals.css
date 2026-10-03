@@ -639,7 +639,7 @@ h3 {
 }
 
 .shark-tail {
-  transform-origin: 100px 394px;
+  transform-origin: 100px 396px;
   animation: tail-beat 3.4s ease-in-out infinite alternate;
 }
 

@@ -97,6 +97,20 @@ function ridges(s: Segment) {
     .join('');
 }
 
+// Tail lobes, starting at the body's width at y 392 (half-width about 2.6).
+const tailOutline =
+  'M102.6 392C108 406 132 426 168 442C140 440 116 430 100 414C92 424 74 432 54 436C70 424 90 408 97.4 392';
+const tail = `${tailOutline}Z`;
+// A few spots carry the pattern onto the lobes; clipped to the tail, so a loose box is enough.
+const tailSpots = (() => {
+  const rand = seeded(7);
+  const out: Spot[] = [];
+  for (let y = 404; y < 440; y += 8) {
+    for (let x = 60; x <= 164; x += 9) out.push({ x: round(x + (rand() - 0.5) * 4), y: round(y + (rand() - 0.5) * 4), r: round(0.6 + rand() * 0.3, 2) });
+  }
+  return out;
+})();
+
 // Five gill slits on each side, just behind the head.
 const gills = [96, 103, 110, 117, 124]
   .map((y) => {
@@ -182,11 +196,15 @@ export default function WhaleShark({ className = '' }: { className?: string }) {
         <radialGradient id="ws-skin" gradientUnits="userSpaceOnUse" cx="100" cy="60" r="360">
           <stop offset="0" stopColor="#4f8a94" />
           <stop offset=".22" stopColor="#1b4650" />
-          <stop offset=".55" stopColor="#0c2a32" />
-          <stop offset="1" stopColor="#071c22" />
+          {/* The deep end stays mid-dark so the stalk and tail match and don't sink into near-black. */}
+          <stop offset=".55" stopColor="#103440" />
+          <stop offset="1" stopColor="#0f323a" />
         </radialGradient>
         <clipPath id="ws-body">
           <path d={body} />
+        </clipPath>
+        <clipPath id="ws-tail">
+          <path d={tail} />
         </clipPath>
         <radialGradient id="ws-dapple">
           <stop offset="0" stopColor="#e6fbff" stopOpacity=".22" />
@@ -206,12 +224,14 @@ export default function WhaleShark({ className = '' }: { className?: string }) {
           <g className="ws-rear">
             <path d="M112 296C126 304 134 316 134 326C124 318 116 310 110 304ZM88 296C74 304 66 316 66 326C76 318 84 310 90 304Z" fill="url(#ws-skin)" />
             <g className="shark-tail">
-              <path
-                d="M96 394H104C120 412 142 428 168 442C140 440 116 430 102 414C92 424 74 432 54 436C70 424 86 408 96 394Z"
-                fill="url(#ws-skin)"
-                stroke="#c9f6fb"
-                strokeOpacity=".35"
-              />
+              {/* The lobes start at the body's own width where they meet it, and the outline skips that joint. */}
+              <path d={tail} fill="url(#ws-skin)" />
+              <g clipPath="url(#ws-tail)" fill="#e9fdff">
+                {tailSpots.map((t) => (
+                  <circle key={`${t.x}-${t.y}`} cx={t.x} cy={t.y} r={t.r} fillOpacity={round(0.85 * light(t.y), 3)} />
+                ))}
+              </g>
+              <path d={tailOutline} fill="none" stroke="#c9f6fb" strokeOpacity=".35" />
             </g>
             <SegmentBody segment={rear} />
           </g>

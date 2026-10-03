@@ -43,50 +43,50 @@ function currentHabitat() {
 // One animal at a time crosses its own section of the page, scrolling with it.
 export default function SeaLife() {
   const [visitor, setVisitor] = useState<Visitor | null>(null);
-  // Short rest on first load or when the reader swims away; a longer one after a full crossing.
-  const rest = useRef<[number, number]>([1500, 3000]);
+  const visitorRef = useRef<Visitor | null>(null);
+  // Earliest time the next animal may appear: soon after arriving somewhere, longer after a full crossing.
+  const nextSpawn = useRef(0);
 
-  // Drop an animal as soon as its depth scrolls out of view, so it can't block the next habitat.
   useEffect(() => {
-    if (!visitor) return;
-    const check = window.setInterval(() => {
-      const margin = innerHeight * 0.5;
-      if (visitor.top < scrollY - margin || visitor.top > scrollY + innerHeight + margin) {
-        rest.current = [1500, 3000];
+    visitorRef.current = visitor;
+  }, [visitor]);
+
+  // One fast loop follows the reader: drop an animal whose depth left the screen, spawn the new habitat's.
+  useEffect(() => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    nextSpawn.current = performance.now() + 800;
+
+    const tick = () => {
+      if (document.hidden) return;
+      const now = performance.now();
+      const current = visitorRef.current;
+
+      if (current) {
+        const margin = innerHeight * 0.3;
+        if (current.top > scrollY - margin && current.top < scrollY + innerHeight + margin) return;
+        visitorRef.current = null;
         setVisitor(null);
+        nextSpawn.current = now + 500;
+        return;
       }
-    }, 1000);
-    return () => window.clearInterval(check);
-  }, [visitor]);
 
-  useEffect(() => {
-    if (visitor || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    let poll = 0;
-    // Rest, then wait until the reader is in a habitat.
-    const timer = window.setTimeout(() => {
-      const trySpawn = () => {
-        const habitat = document.hidden ? undefined : currentHabitat();
-        if (!habitat) return;
-        window.clearInterval(poll);
-        setVisitor({
-          id: Date.now(),
-          kind: habitat.kind,
-          top: scrollY + innerHeight * between(0.25, 0.65),
-          leftward: Math.random() < 0.5,
-          scale: between(0.85, 1.3),
-          duration: between(...speed[habitat.kind]),
-        });
+      const habitat = currentHabitat();
+      if (!habitat || now < nextSpawn.current) return;
+      const next: Visitor = {
+        id: now,
+        kind: habitat.kind,
+        top: scrollY + innerHeight * between(0.25, 0.65),
+        leftward: Math.random() < 0.5,
+        scale: between(0.85, 1.3),
+        duration: between(...speed[habitat.kind]),
       };
-      poll = window.setInterval(trySpawn, 1500);
-      trySpawn();
-    }, between(...rest.current));
-
-    return () => {
-      window.clearTimeout(timer);
-      window.clearInterval(poll);
+      visitorRef.current = next;
+      setVisitor(next);
     };
-  }, [visitor]);
+
+    const loop = window.setInterval(tick, 400);
+    return () => window.clearInterval(loop);
+  }, []);
 
   if (!visitor) return <div className="sea-life" aria-hidden="true" />;
 
@@ -110,7 +110,8 @@ export default function SeaLife() {
         }
         onAnimationEnd={(e) => {
           if (e.target !== e.currentTarget) return;
-          rest.current = [6000, 12000];
+          nextSpawn.current = performance.now() + between(4000, 8000);
+          visitorRef.current = null;
           setVisitor(null);
         }}
       >

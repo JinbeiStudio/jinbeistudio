@@ -460,8 +460,8 @@ h3 {
   /* One tile wider on the left than the drift distance, so no edge is ever exposed. */
   inset: -20% 0 auto -600px;
   height: 50%;
-  opacity: 0.5;
-  mix-blend-mode: screen;
+  opacity: 0.45;
+  /* Plain alpha, no blend mode: Safari's header blur samples blended layers un-blended, which flashed a dark band. */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='300'%3E%3Cfilter id='c' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.012 0.045' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.8 0 0 0 0 0.97 0 0 0 0 1 0 0 0 -2.4 1.25'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)'/%3E%3C/svg%3E");
   background-size: 600px 300px;
   mask-image: linear-gradient(180deg, #000 0%, #000 25%, transparent 100%);
@@ -506,7 +506,6 @@ h3 {
     repeating-conic-gradient(from 152deg at 50% 0%, transparent 0deg, rgb(200 245 250 / 0.08) 2deg, transparent 4.5deg, transparent 11deg);
   mask-image: radial-gradient(60% 75% at 50% 0%, #000 0%, rgb(0 0 0 / 0.4) 50%, transparent 85%);
   filter: blur(4px);
-  mix-blend-mode: screen;
   /* The gradient is painted once and the layer is rotated on the GPU; animating the gradient itself repainted every frame. */
   will-change: transform;
   animation: ray-sway 14s ease-in-out infinite alternate;

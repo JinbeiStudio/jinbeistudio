@@ -239,7 +239,7 @@ export const en: Dictionary = {
         name: 'Cristalens e-CRF',
         kind: 'Web app · Medical',
         summary: 'Electronic case report forms used by investigators to capture clinical study data securely.',
-        stack: ['Laravel', 'Symfony', 'MySQL'],
+        stack: ['Symfony', 'MySQL'],
         highlights: [
           { label: 'Multi-study access', icon: 'folder' },
           { label: 'Investigator accounts', icon: 'users' },
@@ -472,7 +472,7 @@ export const fr: Dictionary = {
         name: 'Cristalens e-CRF',
         kind: 'Application web · Médical',
         summary: 'Cahiers d’observation électroniques permettant aux investigateurs de saisir les données d’études cliniques en toute sécurité.',
-        stack: ['Laravel', 'Symfony', 'MySQL'],
+        stack: ['Symfony', 'MySQL'],
         highlights: [
           { label: 'Accès multi-études', icon: 'folder' },
           { label: 'Comptes investigateurs', icon: 'users' },

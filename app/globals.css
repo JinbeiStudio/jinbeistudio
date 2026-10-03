@@ -249,6 +249,13 @@ h3 {
   }
 }
 
+/* Whale, manta and great white keep more of their colour and contrast; their detail washes out first. */
+.sea-life__visitor--whale,
+.sea-life__visitor--manta,
+.sea-life__visitor--shark {
+  filter: blur(var(--blur)) saturate(0.9) contrast(0.97);
+}
+
 /* Jellyfish: bioluminescent, so it keeps its glow instead of the deep-water dimming. */
 .sea-life__visitor--jellyfish {
   opacity: 0.9;
@@ -632,7 +639,7 @@ h3 {
 }
 
 .shark-tail {
-  transform-origin: 100px 398px;
+  transform-origin: 100px 394px;
   animation: tail-beat 3.4s ease-in-out infinite alternate;
 }
 
@@ -659,6 +666,69 @@ h3 {
 @keyframes fin {
   to {
     rotate: 6deg;
+  }
+}
+
+/* The body bends at two joints with a phase lag, giving a travelling S-wave down to the tail. */
+.ws-mid,
+.ws-rear {
+  transform-box: view-box;
+  animation: ws-bend 4s ease-in-out infinite alternate;
+}
+
+.ws-mid {
+  transform-origin: 100px 200px;
+}
+
+.ws-rear {
+  transform-origin: 100px 300px;
+  animation-delay: -0.7s;
+}
+
+@keyframes ws-bend {
+  from {
+    rotate: -3deg;
+  }
+  to {
+    rotate: 3deg;
+  }
+}
+
+/* Light from the surface drifting down its back. */
+.ws-dapples ellipse {
+  animation: ws-dapple 9s ease-in-out infinite;
+}
+.ws-dapples ellipse:nth-child(2) {
+  animation-duration: 11s;
+  animation-delay: -4s;
+}
+.ws-dapples ellipse:nth-child(3) {
+  animation-duration: 13s;
+  animation-delay: -7s;
+}
+
+@keyframes ws-dapple {
+  0%,
+  100% {
+    translate: 0 -20px;
+    opacity: 0.4;
+  }
+  50% {
+    translate: 8px 40px;
+    opacity: 1;
+  }
+}
+
+.ws-pilot {
+  animation: ws-pilot 2.6s ease-in-out infinite alternate;
+}
+
+@keyframes ws-pilot {
+  from {
+    translate: -3px 2px;
+  }
+  to {
+    translate: 3px -4px;
   }
 }
 
@@ -2001,6 +2071,8 @@ h3 {
   .reveal,
   .quote,
   .hero__shark-wrap,
+  .ws-mid,
+  .ws-rear,
   .sea-life {
     animation: none !important;
   }

@@ -22,8 +22,12 @@ const url = (id: string) => `url(#${id})`;
 // Great white: stocky body, conical snout, tall dorsal, near-symmetric crescent tail, jagged countershading.
 function Shark() {
   const id = useIds('skin', 'belly', 'fin', 'clip');
+  // The body tapers into a narrow tail stalk that the lobes grow out of, so there is no seam at the tail.
   const body =
-    'M199 39C194 32 184 27 168 24C150 21 128 21 106 23C86 25 68 30 54 35L44 38V46C58 50 76 54 98 56C124 58 150 58 170 55C186 52 194 46 199 39Z';
+    'M199 39C194 32 184 27 168 24C150 21 128 21 106 23C86 25 66 30 52 35C46 37 42 38.5 37 39.5V44.5C42 45.5 46 47 52 49C70 54 96 56 124 57C150 58 168 56 182 52C192 48 196 44 199 39Z';
+  // Outline along back and belly only, never across the stalk where the tail joins.
+  const outline =
+    'M37 39.5C42 38.5 46 37 52 35C66 30 86 25 106 23C128 21 150 21 168 24C184 27 194 32 199 39C196 44 192 48 182 52C168 56 150 58 124 57C96 56 70 54 52 49C46 47 42 45.5 37 44.5';
 
   return (
     <svg viewBox="0 0 200 80">
@@ -46,15 +50,15 @@ function Shark() {
         </clipPath>
       </defs>
 
-      <g className="creature-tail" style={{ transformOrigin: '46px 42px' }}>
-        <path d="M50 36L20 4C24 17 28 30 31 42C28 54 24 66 21 78L50 48Z" fill={url(id.fin)} {...rim} />
+      <g className="creature-tail" style={{ transformOrigin: '40px 42px' }}>
+        <path d="M44 38.5C34 28 22 14 14 3C18 16 22 29 26 42C22 55 18 67 15 79C23 68 34 55 44 45.5Z" fill={url(id.skin)} {...rim} />
       </g>
       <path d="M64 33L59 26L56 34Z" fill={url(id.fin)} />
       <path d="M64 50L58 57L55 49Z" fill={url(id.fin)} />
       <path d="M92 55L85 63L80 54Z" fill={url(id.fin)} />
       {/* Tall triangular first dorsal, slightly swept back. */}
       <path d="M106 24C111 15 116 7 121 0C126 10 133 18 147 23Z" fill={url(id.fin)} {...rim} />
-      <path d={body} fill={url(id.skin)} {...rim} />
+      <path d={body} fill={url(id.skin)} />
       {/* White belly with the ragged grey/white boundary of a great white. */}
       <path
         clipPath={url(id.clip)}
@@ -62,7 +66,10 @@ function Shark() {
         fill={url(id.belly)}
       />
       <path d="M140 54C132 62 120 72 106 79C114 70 122 62 128 56Z" fill={url(id.fin)} {...rim} />
+      <path d={outline} fill="none" {...rim} />
       <path d="M58 32C90 25 140 20 186 29" fill="none" stroke="#e6fbff" strokeOpacity=".3" strokeWidth="1.2" strokeLinecap="round" />
+      {/* Caudal keel: the faint lateral ridge along the tail stalk. */}
+      <path d="M38 42C46 41.6 54 41.4 64 41.6" fill="none" stroke="#c9f6fb" strokeOpacity=".22" strokeWidth=".9" strokeLinecap="round" />
       <g fill="none" stroke="#2b3b41" strokeOpacity=".75" strokeWidth=".9" strokeLinecap="round">
         <path d="M150 30C147 36 147 42 150 48M155 29C152 35 152 42 155 48M160 29C157 35 157 41 160 47M165 29C162 35 162 41 165 46M170 30C167 35 167 40 170 45" />
         <path d="M193 45C189 47 184 48 179 48" strokeOpacity=".25" />

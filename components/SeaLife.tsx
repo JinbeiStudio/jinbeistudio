@@ -36,6 +36,9 @@ const speed: Record<CreatureKind, [number, number]> = {
 
 const between = (min: number, max: number) => min + Math.random() * (max - min);
 
+// Large, dark animals lose their detail fastest under the depth blur, so they get much less of it.
+const blurFactor: Partial<Record<CreatureKind, number>> = { whale: 0.35, manta: 0.35, shark: 0.35 };
+
 // The habitat under a probe point (in viewport px), plus where an animal should swim in it (page px).
 function habitatAt(probe: number) {
   for (const habitat of habitats) {
@@ -127,7 +130,7 @@ export default function SeaLife() {
             width: creatureWidth[visitor.kind] * visitor.scale,
             '--swim': `${visitor.duration}s`,
             animationDelay: `-${visitor.head.toFixed(1)}s`,
-            '--blur': `${(0.6 + distance * 1.2).toFixed(1)}px`,
+            '--blur': `${((0.6 + distance * 1.2) * (blurFactor[visitor.kind] ?? 1)).toFixed(2)}px`,
             '--alpha': (0.75 - distance * 0.3).toFixed(2),
           } as React.CSSProperties
         }

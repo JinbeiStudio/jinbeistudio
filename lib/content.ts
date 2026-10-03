@@ -75,6 +75,7 @@ const stacks = {
 };
 
 const images = {
+  avecoach: '/work/avecoach.webp',
   trocvelo: '/work/trocvelo.webp',
   upd: '/work/upd.webp',
 };
@@ -218,6 +219,15 @@ export const en: Dictionary = {
         href: 'https://www.winlassie.com/nos-logiciels/winlassie-online/',
       },
       {
+        name: 'Avé Coach',
+        kind: 'Website & CMS · Coaching',
+        summary:
+          'A custom website and CMS for an executive coach in the Paris region: she edits her texts and images from her own admin, pages are rendered server-side for SEO, and the contact form sends emails.',
+        stack: ['Node.js', 'Express', 'SQLite', 'JWT', 'Nodemailer'],
+        image: images.avecoach,
+        href: 'https://ave-coach.fr',
+      },
+      {
         name: 'Troc Vélo',
         kind: 'Marketplace · E-commerce',
         summary: 'A cycling and outdoor marketplace where riders buy, sell and share gear without fees.',
@@ -229,7 +239,7 @@ export const en: Dictionary = {
         name: 'Cristalens e-CRF',
         kind: 'Web app · Medical',
         summary: 'Electronic case report forms used by investigators to capture clinical study data securely.',
-        stack: ['Laravel', 'Symfony', 'MySQL'],
+        stack: ['Symfony', 'MySQL'],
         highlights: [
           { label: 'Multi-study access', icon: 'folder' },
           { label: 'Investigator accounts', icon: 'users' },
@@ -442,6 +452,15 @@ export const fr: Dictionary = {
         href: 'https://www.winlassie.com/nos-logiciels/winlassie-online/',
       },
       {
+        name: 'Avé Coach',
+        kind: 'Site & CMS · Coaching',
+        summary:
+          'Un site et un CMS sur mesure pour une coach de dirigeants en région parisienne : elle modifie ses textes et images depuis son propre espace d’administration, les pages sont générées côté serveur pour le SEO et le formulaire de contact envoie des emails.',
+        stack: ['Node.js', 'Express', 'SQLite', 'JWT', 'Nodemailer'],
+        image: images.avecoach,
+        href: 'https://ave-coach.fr',
+      },
+      {
         name: 'Troc Vélo',
         kind: 'Marketplace · E-commerce',
         summary: 'Une marketplace vélo et outdoor où les cyclistes achètent, vendent et partagent leur matériel sans frais.',
@@ -453,7 +472,7 @@ export const fr: Dictionary = {
         name: 'Cristalens e-CRF',
         kind: 'Application web · Médical',
         summary: 'Cahiers d’observation électroniques permettant aux investigateurs de saisir les données d’études cliniques en toute sécurité.',
-        stack: ['Laravel', 'Symfony', 'MySQL'],
+        stack: ['Symfony', 'MySQL'],
         highlights: [
           { label: 'Accès multi-études', icon: 'folder' },
           { label: 'Comptes investigateurs', icon: 'users' },

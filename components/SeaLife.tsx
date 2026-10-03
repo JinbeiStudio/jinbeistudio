@@ -17,9 +17,9 @@ type Visitor = {
 // Each animal lives at its own depth; the surface (hero) belongs to the whale shark alone.
 const habitats: { section: string; kind: CreatureKind }[] = [
   { section: '#about', kind: 'turtle' },
-  { section: '#experience', kind: 'manta' },
-  { section: '#work', kind: 'shark' },
-  { section: '#skills', kind: 'shark' },
+  { section: '#experience', kind: 'shark' },
+  { section: '#work', kind: 'manta' },
+  { section: '#skills', kind: 'manta' },
   { section: '#testimonials', kind: 'whale' },
   { section: '#contact', kind: 'whale' },
 ];

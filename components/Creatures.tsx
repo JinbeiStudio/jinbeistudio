@@ -3,9 +3,12 @@ import { round, seeded } from '@/lib/random';
 
 // Side and top-view illustrations, all drawn facing right; SeaLife mirrors them for leftward swims.
 
-export type CreatureKind = 'shark' | 'turtle' | 'whale' | 'manta';
+export type CreatureKind = 'shark' | 'blacktip' | 'turtle' | 'whale' | 'manta' | 'orca' | 'jellyfish';
 
-export const creatureWidth: Record<CreatureKind, number> = { shark: 240, turtle: 130, whale: 580, manta: 200 };
+export const creatureWidth: Record<CreatureKind, number> = { shark: 260, blacktip: 240, turtle: 130, whale: 580, manta: 200, orca: 330, jellyfish: 120 };
+
+// Height / width of each viewBox, so SeaLife can centre an animal on its spot instead of hanging it from its top edge.
+export const creatureAspect: Record<CreatureKind, number> = { shark: 80 / 200, blacktip: 70 / 200, turtle: 100 / 120, whale: 150 / 400, manta: 110 / 170, orca: 110 / 300, jellyfish: 230 / 120 };
 
 // Gradient ids are scoped per instance so an outgoing and incoming creature never share defs.
 function useIds<T extends string>(...names: T[]) {
@@ -16,7 +19,69 @@ function useIds<T extends string>(...names: T[]) {
 const rim = { stroke: 'rgb(200 240 245 / 0.28)', strokeWidth: 0.8 };
 const url = (id: string) => `url(#${id})`;
 
+// Great white: stocky body, conical snout, tall dorsal, near-symmetric crescent tail, jagged countershading.
 function Shark() {
+  const id = useIds('skin', 'belly', 'fin', 'clip');
+  // The body tapers into a narrow tail stalk that the lobes grow out of, so there is no seam at the tail.
+  const body =
+    'M199 39C194 32 184 27 168 24C150 21 128 21 106 23C86 25 66 30 52 35C46 37 42 38.5 37 39.5V44.5C42 45.5 46 47 52 49C70 54 96 56 124 57C150 58 168 56 182 52C192 48 196 44 199 39Z';
+  // Outline along back and belly only, never across the stalk where the tail joins.
+  const outline =
+    'M37 39.5C42 38.5 46 37 52 35C66 30 86 25 106 23C128 21 150 21 168 24C184 27 194 32 199 39C196 44 192 48 182 52C168 56 150 58 124 57C96 56 70 54 52 49C46 47 42 45.5 37 44.5';
+
+  return (
+    <svg viewBox="0 0 200 80">
+      <defs>
+        <linearGradient id={id.skin} gradientUnits="userSpaceOnUse" x1="0" y1="20" x2="0" y2="56">
+          <stop offset="0" stopColor="#7e949b" />
+          <stop offset=".5" stopColor="#566c74" />
+          <stop offset="1" stopColor="#3f535a" />
+        </linearGradient>
+        <linearGradient id={id.belly} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#f2f7f8" />
+          <stop offset="1" stopColor="#c3d3d6" />
+        </linearGradient>
+        <linearGradient id={id.fin} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#6c838a" />
+          <stop offset="1" stopColor="#3a4d54" />
+        </linearGradient>
+        <clipPath id={id.clip}>
+          <path d={body} />
+        </clipPath>
+      </defs>
+
+      <g className="creature-tail" style={{ transformOrigin: '40px 42px' }}>
+        <path d="M44 38.5C34 28 22 14 14 3C18 16 22 29 26 42C22 55 18 67 15 79C23 68 34 55 44 45.5Z" fill={url(id.skin)} {...rim} />
+      </g>
+      <path d="M64 33L59 26L56 34Z" fill={url(id.fin)} />
+      <path d="M64 50L58 57L55 49Z" fill={url(id.fin)} />
+      <path d="M92 55L85 63L80 54Z" fill={url(id.fin)} />
+      {/* Tall triangular first dorsal, slightly swept back. */}
+      <path d="M106 24C111 15 116 7 121 0C126 10 133 18 147 23Z" fill={url(id.fin)} {...rim} />
+      <path d={body} fill={url(id.skin)} />
+      {/* White belly with the ragged grey/white boundary of a great white. */}
+      <path
+        clipPath={url(id.clip)}
+        d="M199 40C195 42 190 44 184 45L179 44.5L173 47L166 45.5L161 48.5L152 46.8L146 50L138 48.4L129 51L121 49.6L112 52L103 50.4L93 52.4L84 50.6L74 51.6L62 50L50 47V60H200Z"
+        fill={url(id.belly)}
+      />
+      <path d="M140 54C132 62 120 72 106 79C114 70 122 62 128 56Z" fill={url(id.fin)} {...rim} />
+      <path d={outline} fill="none" {...rim} />
+      <path d="M58 32C90 25 140 20 186 29" fill="none" stroke="#e6fbff" strokeOpacity=".3" strokeWidth="1.2" strokeLinecap="round" />
+      {/* Caudal keel: the faint lateral ridge along the tail stalk. */}
+      <path d="M38 42C46 41.6 54 41.4 64 41.6" fill="none" stroke="#c9f6fb" strokeOpacity=".22" strokeWidth=".9" strokeLinecap="round" />
+      <g fill="none" stroke="#2b3b41" strokeOpacity=".75" strokeWidth=".9" strokeLinecap="round">
+        <path d="M150 30C147 36 147 42 150 48M155 29C152 35 152 42 155 48M160 29C157 35 157 41 160 47M165 29C162 35 162 41 165 46M170 30C167 35 167 40 170 45" />
+        <path d="M193 45C189 47 184 48 179 48" strokeOpacity=".25" />
+      </g>
+      <circle cx="182" cy="35" r="2.1" fill="#05090b" />
+      <circle cx="182.6" cy="34.4" r=".55" fill="#e6fbff" />
+    </svg>
+  );
+}
+
+// Blacktip reef shark: kept as an alternative to the great white; not assigned to a section.
+function BlacktipShark() {
   const id = useIds('skin', 'fin', 'tip', 'light');
   const body =
     'M197 37C188 25 168 19 141 19L117 1L108 21C86 23 66 27 46 31V42C70 46 96 50 117 50L130 64L137 50C162 50 186 46 197 37Z';
@@ -196,6 +261,114 @@ function Whale() {
   );
 }
 
+function Orca() {
+  const id = useIds('skin', 'white', 'fin');
+  const body =
+    'M292 60C286 45 262 34 230 32C190 30 140 36 100 44C80 48 62 53 48 57V67C70 73 100 79 140 81C190 83 240 81 268 75C284 71 294 66 292 60Z';
+
+  return (
+    <svg viewBox="0 0 300 110">
+      <defs>
+        <linearGradient id={id.skin} gradientUnits="userSpaceOnUse" x1="0" y1="30" x2="0" y2="82">
+          <stop offset="0" stopColor="#2a3a41" />
+          <stop offset=".45" stopColor="#111c21" />
+          <stop offset="1" stopColor="#0a1317" />
+        </linearGradient>
+        <linearGradient id={id.white} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#f1f8f9" />
+          <stop offset="1" stopColor="#b9cdd1" />
+        </linearGradient>
+        <linearGradient id={id.fin} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#24343b" />
+          <stop offset="1" stopColor="#0c1519" />
+        </linearGradient>
+      </defs>
+
+      <g className="creature-tail" style={{ transformOrigin: '50px 62px' }}>
+        <path d="M54 57L14 36C18 46 22 55 27 62C22 69 18 78 14 88L54 67Z" fill={url(id.fin)} {...rim} />
+      </g>
+      {/* Tall, slightly swept-back dorsal fin. */}
+      <path d="M146 39C150 26 147 12 139 2C156 10 172 24 188 37Z" fill={url(id.fin)} {...rim} />
+      <path d={body} fill={url(id.skin)} {...rim} />
+      {/* Grey saddle patch behind the dorsal fin. */}
+      <path d="M196 38C182 45 160 47 132 44C146 37 172 34 196 38Z" fill="#8fa3a8" opacity=".45" />
+      {/* White belly sweeping up into the flank patch near the tail. */}
+      <path d="M272 71C244 79 200 81 160 80C130 79 104 76 84 69C96 64 108 64 118 70C136 73 170 72 200 70C230 68 256 67 272 71Z" fill={url(id.white)} />
+      {/* White eye patch, just above and behind the eye. */}
+      <ellipse cx="248" cy="47" rx="13" ry="5" transform="rotate(-8 248 47)" fill={url(id.white)} />
+      <path d="M232 72C229 85 221 97 209 101C203 99 207 87 218 74Z" fill={url(id.fin)} {...rim} />
+      <path d="M100 47C150 38 210 34 262 38" fill="none" stroke="#e6fbff" strokeOpacity=".18" strokeWidth="1.4" strokeLinecap="round" />
+      <circle cx="263" cy="53" r="1.6" fill="#05090b" />
+      <circle cx="263.5" cy="52.5" r=".45" fill="#e6fbff" />
+    </svg>
+  );
+}
+
+function Jellyfish() {
+  const id = useIds('bell', 'glow', 'arm');
+  const tentacles = [26, 36, 46, 74, 84, 94];
+
+  return (
+    <svg viewBox="0 0 120 230">
+      <defs>
+        <radialGradient id={id.bell} cx=".5" cy=".35" r=".7">
+          <stop offset="0" stopColor="#d9f7ff" stopOpacity=".75" />
+          <stop offset=".55" stopColor="#7fdcef" stopOpacity=".35" />
+          <stop offset="1" stopColor="#5a8de0" stopOpacity=".12" />
+        </radialGradient>
+        <radialGradient id={id.glow} cx=".5" cy=".5" r=".5">
+          <stop offset="0" stopColor="#f2e6ff" stopOpacity=".9" />
+          <stop offset="1" stopColor="#b9a4ff" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id={id.arm} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#bdefff" stopOpacity=".7" />
+          <stop offset="1" stopColor="#bdefff" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+
+      {/* Leans into its direction of travel; SeaLife mirrors it for leftward drifts. */}
+      <g transform="rotate(14 60 60)">
+        <g className="jelly-trail">
+          {tentacles.map((x, i) => (
+            <path
+              key={x}
+              d={`M${x} 62C${x + (i % 2 ? 8 : -8)} 100 ${x + (i % 2 ? -6 : 6)} 150 ${x + (i % 2 ? 4 : -4)} 225`}
+              fill="none"
+              stroke="#a8e6f5"
+              strokeOpacity=".35"
+              strokeWidth=".8"
+            />
+          ))}
+          <path d="M52 64C42 90 62 112 50 140C44 156 56 170 50 186" fill="none" stroke={url(id.arm)} strokeWidth="5" strokeLinecap="round" />
+          <path d="M60 64C70 92 52 116 64 146C70 162 58 178 64 196" fill="none" stroke={url(id.arm)} strokeWidth="6" strokeLinecap="round" />
+          <path d="M68 64C78 88 66 110 74 134C78 148 70 160 74 172" fill="none" stroke={url(id.arm)} strokeWidth="4" strokeLinecap="round" />
+        </g>
+        <g className="jelly-bell">
+          <path
+            d="M18 62C18 26 38 8 60 8C82 8 102 26 102 62C95 68 88 63 81 67C75 63 68 68 60 65C52 68 45 63 39 67C32 63 25 68 18 62Z"
+            fill={url(id.bell)}
+            stroke="#c9f6fb"
+            strokeOpacity=".5"
+            strokeWidth=".8"
+          />
+          <ellipse cx="60" cy="38" rx="22" ry="16" fill={url(id.glow)} />
+          <g fill="none" stroke="#e9dcff" strokeOpacity=".55" strokeWidth="1.4">
+            <circle cx="52" cy="36" r="5" />
+            <circle cx="68" cy="36" r="5" />
+            <circle cx="56" cy="46" r="4.5" />
+            <circle cx="64" cy="46" r="4.5" />
+          </g>
+          <g className="jelly-lights" fill="#e6fbff">
+            {[22, 34, 47, 60, 73, 86, 98].map((x) => (
+              <circle key={x} cx={x} cy={x === 60 ? 65 : 64} r="1.3" />
+            ))}
+          </g>
+        </g>
+      </g>
+    </svg>
+  );
+}
+
 function Manta() {
   const id = useIds('back', 'patch', 'edge');
   const wings =
@@ -233,4 +406,4 @@ function Manta() {
   );
 }
 
-export const creatures: Record<CreatureKind, () => React.JSX.Element> = { shark: Shark, turtle: Turtle, whale: Whale, manta: Manta };
+export const creatures: Record<CreatureKind, () => React.JSX.Element> = { shark: Shark, blacktip: BlacktipShark, turtle: Turtle, whale: Whale, manta: Manta, orca: Orca, jellyfish: Jellyfish };

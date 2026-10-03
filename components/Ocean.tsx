@@ -18,8 +18,8 @@ function snow(seed: number, count: number, size: number, alpha: number) {
 
 const layers = [
   { className: 'snow snow--far', shadow: snow(1, 140, 1, 0.55) },
-  { className: 'snow snow--mid', shadow: snow(2, 70, 2, 0.6) },
-  { className: 'snow snow--near', shadow: snow(3, 24, 3, 0.5) },
+  { className: 'snow snow--mid', shadow: snow(2, 70, 2.5, 0.6) },
+  { className: 'snow snow--near', shadow: snow(3, 24, 4, 0.5) },
 ];
 
 export default function Ocean({ depthLabel }: { depthLabel: string }) {

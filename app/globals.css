@@ -22,12 +22,6 @@
   color-scheme: dark;
 }
 
-@property --ray-sway {
-  syntax: '<angle>';
-  inherits: false;
-  initial-value: 0deg;
-}
-
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 88px;
@@ -91,22 +85,16 @@ h3 {
   inset: 0;
   z-index: -2;
   pointer-events: none;
-  /* Viewport-sized water that darkens with --dive. A document-tall gradient doesn't paint in some Safari versions. */
-  --sink: calc(var(--dive, 0) * 140%);
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--surface), var(--abyss) min(var(--sink), 100%)) 0%,
-    color-mix(in srgb, #175560, var(--abyss) min(var(--sink), 100%)) 25%,
-    color-mix(in srgb, var(--shallow), var(--abyss) min(var(--sink), 100%)) 60%,
-    color-mix(in srgb, var(--mid), var(--abyss) min(var(--sink), 100%)) 100%
-  );
+  /* Static surface water; the dive darkens it through the overlay's opacity only, which the GPU composites without repainting. */
+  background: linear-gradient(180deg, var(--surface) 0%, #175560 25%, var(--shallow) 60%, var(--mid) 100%);
 }
 
 .ocean__abyss {
   position: absolute;
   inset: 0;
-  background: radial-gradient(120% 80% at 50% 120%, var(--abyss), #000 70%);
-  opacity: calc(var(--dive, 0) * 0.6);
+  background: var(--abyss);
+  opacity: min(calc(var(--dive, 0) * 1.4), 1);
+  will-change: opacity;
 }
 
 .snow {
@@ -121,13 +109,12 @@ h3 {
 .snow--far {
   animation: snow-drift 140s linear infinite;
 }
+/* No filter here: blurring these 2-screen-tall layers every frame cost more than everything else combined. */
 .snow--mid {
   animation: snow-drift 90s linear infinite;
-  filter: blur(0.5px);
 }
 .snow--near {
   animation: snow-drift 55s linear infinite;
-  filter: blur(1px);
 }
 
 @keyframes snow-drift {
@@ -262,6 +249,58 @@ h3 {
   }
 }
 
+/* Whale, manta and great white keep more of their colour and contrast; their detail washes out first. */
+.sea-life__visitor--whale,
+.sea-life__visitor--manta,
+.sea-life__visitor--shark {
+  filter: blur(var(--blur)) saturate(0.9) contrast(0.97);
+}
+
+/* Jellyfish: bioluminescent, so it keeps its glow instead of the deep-water dimming. */
+.sea-life__visitor--jellyfish {
+  opacity: 0.9;
+  filter: blur(calc(var(--blur) * 0.5)) drop-shadow(0 0 14px rgb(127 220 239 / 0.55));
+}
+
+.jelly-bell {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  animation: jelly-pulse 2.8s ease-in-out infinite;
+}
+
+.jelly-trail {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  animation: jelly-trail 2.8s ease-in-out infinite;
+}
+
+.jelly-lights circle {
+  animation: twinkle 2.8s ease-in-out infinite;
+}
+.jelly-lights circle:nth-child(2n) {
+  animation-delay: -1.4s;
+}
+
+@keyframes jelly-pulse {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  45% {
+    transform: scale(1.1, 0.86);
+  }
+}
+
+@keyframes jelly-trail {
+  0%,
+  100% {
+    transform: skewX(0) scaleY(1);
+  }
+  45% {
+    transform: skewX(-4deg) scaleY(1.04);
+  }
+}
+
 /* ---------- Depth meter ---------- */
 
 /* Scroll progress comes from DepthValue (--dive): Safari's scroll timelines proved unreliable. */
@@ -340,18 +379,43 @@ h3 {
   isolation: isolate;
 }
 
-/* Fades in over the first scroll (--header), then darkens with the ocean (--dive). */
-.site-header::before {
+/* Turns solid once scrolled (data-solid, set by DepthValue), then darkens with the ocean (--dive).
+   Tint and blur radius transition instead of opacity: WebKit doesn't fade backdrop-filter with opacity smoothly.
+   The resting blur is tiny but non-zero: at exactly zero WebKit drops the layer at once, so fading out looked abrupt. */
+.site-header::before,
+.site-header::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-color: color-mix(in srgb, rgb(2 12 16 / 0.88) calc(var(--dive, 0) * 100%), rgb(16 66 76 / 0.82));
-  background-image: linear-gradient(100deg, rgb(127 220 239 / 0.06), transparent 60%);
-  border-bottom: 1px solid var(--line);
+}
+
+.site-header::before {
+  background-color: rgb(16 66 76 / 0);
+  border-bottom: 1px solid transparent;
+  backdrop-filter: blur(0.01px) saturate(1.001);
+  transition:
+    background-color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease,
+    backdrop-filter 0.4s ease;
+}
+
+.site-header[data-solid]::before {
+  background-color: rgb(16 66 76 / 0.82);
+  border-bottom-color: var(--line);
   box-shadow: 0 10px 30px -12px rgb(1 8 11 / 0.7);
   backdrop-filter: blur(14px) saturate(1.3);
-  opacity: var(--header, 0);
+}
+
+.site-header::after {
+  background: rgb(2 12 16 / 0.85);
+  opacity: 0;
+  will-change: opacity;
+}
+
+.site-header[data-solid]::after {
+  opacity: var(--dive, 0);
 }
 
 .site-header__brand {
@@ -448,8 +512,8 @@ h3 {
   /* One tile wider on the left than the drift distance, so no edge is ever exposed. */
   inset: -20% 0 auto -600px;
   height: 50%;
-  opacity: 0.5;
-  mix-blend-mode: screen;
+  opacity: 0.45;
+  /* Plain alpha, no blend mode: Safari's header blur samples blended layers un-blended, which flashed a dark band. */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='300'%3E%3Cfilter id='c' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.012 0.045' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.8 0 0 0 0 0.97 0 0 0 0 1 0 0 0 -2.4 1.25'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)'/%3E%3C/svg%3E");
   background-size: 600px 300px;
   mask-image: linear-gradient(180deg, #000 0%, #000 25%, transparent 100%);
@@ -490,11 +554,12 @@ h3 {
   translate: -50% 0;
   transform-origin: 50% 0;
   background:
-    repeating-conic-gradient(from calc(150deg + var(--ray-sway)) at 50% 0%, transparent 0deg, rgb(200 245 250 / 0.13) 1.4deg, transparent 3.2deg, transparent 7deg),
-    repeating-conic-gradient(from calc(152deg - var(--ray-sway)) at 50% 0%, transparent 0deg, rgb(200 245 250 / 0.08) 2deg, transparent 4.5deg, transparent 11deg);
+    repeating-conic-gradient(from 150deg at 50% 0%, transparent 0deg, rgb(200 245 250 / 0.13) 1.4deg, transparent 3.2deg, transparent 7deg),
+    repeating-conic-gradient(from 152deg at 50% 0%, transparent 0deg, rgb(200 245 250 / 0.08) 2deg, transparent 4.5deg, transparent 11deg);
   mask-image: radial-gradient(60% 75% at 50% 0%, #000 0%, rgb(0 0 0 / 0.4) 50%, transparent 85%);
   filter: blur(4px);
-  mix-blend-mode: screen;
+  /* The gradient is painted once and the layer is rotated on the GPU; animating the gradient itself repainted every frame. */
+  will-change: transform;
   animation: ray-sway 14s ease-in-out infinite alternate;
 }
 
@@ -507,10 +572,10 @@ h3 {
 
 @keyframes ray-sway {
   from {
-    --ray-sway: -4deg;
+    rotate: -3deg;
   }
   to {
-    --ray-sway: 4deg;
+    rotate: 3deg;
   }
 }
 
@@ -574,7 +639,7 @@ h3 {
 }
 
 .shark-tail {
-  transform-origin: 100px 398px;
+  transform-origin: 100px 396px;
   animation: tail-beat 3.4s ease-in-out infinite alternate;
 }
 
@@ -601,6 +666,69 @@ h3 {
 @keyframes fin {
   to {
     rotate: 6deg;
+  }
+}
+
+/* The body bends at two joints with a phase lag, giving a travelling S-wave down to the tail. */
+.ws-mid,
+.ws-rear {
+  transform-box: view-box;
+  animation: ws-bend 4s ease-in-out infinite alternate;
+}
+
+.ws-mid {
+  transform-origin: 100px 200px;
+}
+
+.ws-rear {
+  transform-origin: 100px 300px;
+  animation-delay: -0.7s;
+}
+
+@keyframes ws-bend {
+  from {
+    rotate: -3deg;
+  }
+  to {
+    rotate: 3deg;
+  }
+}
+
+/* Light from the surface drifting down its back. */
+.ws-dapples ellipse {
+  animation: ws-dapple 9s ease-in-out infinite;
+}
+.ws-dapples ellipse:nth-child(2) {
+  animation-duration: 11s;
+  animation-delay: -4s;
+}
+.ws-dapples ellipse:nth-child(3) {
+  animation-duration: 13s;
+  animation-delay: -7s;
+}
+
+@keyframes ws-dapple {
+  0%,
+  100% {
+    translate: 0 -20px;
+    opacity: 0.4;
+  }
+  50% {
+    translate: 8px 40px;
+    opacity: 1;
+  }
+}
+
+.ws-pilot {
+  animation: ws-pilot 2.6s ease-in-out infinite alternate;
+}
+
+@keyframes ws-pilot {
+  from {
+    translate: -3px 2px;
+  }
+  to {
+    translate: 3px -4px;
   }
 }
 
@@ -1943,6 +2071,8 @@ h3 {
   .reveal,
   .quote,
   .hero__shark-wrap,
+  .ws-mid,
+  .ws-rear,
   .sea-life {
     animation: none !important;
   }

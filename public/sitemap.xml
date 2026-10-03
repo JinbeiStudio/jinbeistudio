@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://jinbeistudio.com/</loc>
-    <lastmod>2023-10-13</lastmod>
+    <lastmod>2026-10-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jinbeistudio.com/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jinbeistudio.com/fr/" />
+  </url>
+  <url>
+    <loc>https://jinbeistudio.com/fr/</loc>
+    <lastmod>2026-10-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jinbeistudio.com/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://jinbeistudio.com/fr/" />
   </url>
 </urlset>

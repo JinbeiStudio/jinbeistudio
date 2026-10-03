@@ -37,7 +37,7 @@ const speed: Record<CreatureKind, [number, number]> = {
 const between = (min: number, max: number) => min + Math.random() * (max - min);
 
 // Large, dark animals lose their detail fastest under the depth blur, so they get much less of it.
-const blurFactor: Partial<Record<CreatureKind, number>> = { whale: 0.35, manta: 0.35, shark: 0.35 };
+const blurFactor: Partial<Record<CreatureKind, number>> = { whale: 0.35, manta: 0.35, shark: 0.35, turtle: 0.35 };
 
 // The habitat under a probe point (in viewport px), plus where an animal should swim in it (page px).
 function habitatAt(probe: number) {

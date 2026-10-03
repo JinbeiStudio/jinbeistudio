@@ -135,7 +135,7 @@ export const en: Dictionary = {
     stats: [
       { value: '10+', label: 'years in tech' },
       { value: '8+', label: 'years shipping code' },
-      { value: '18', label: 'countries explored' },
+      { value: '18', label: 'countries on a world tour' },
       { value: '980', label: 'TOEIC score' },
     ],
     nameNote: 'Jinbei comes from jinbei-zame (甚兵衛鮫), the Japanese name for the whale shark: the gentle giant of the ocean. Steady, curious, and built to go the distance.',
@@ -359,7 +359,7 @@ export const fr: Dictionary = {
     stats: [
       { value: '10+', label: 'ans dans la tech' },
       { value: '8+', label: 'ans de développement' },
-      { value: '18', label: 'pays explorés' },
+      { value: '18', label: 'pays lors d’un tour du monde' },
       { value: '980', label: 'score TOEIC' },
     ],
     nameNote: 'Jinbei vient de jinbei-zame (甚兵衛鮫), le nom japonais du requin-baleine : le géant paisible de l’océan. Constant, curieux, et taillé pour aller loin.',

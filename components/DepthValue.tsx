@@ -4,20 +4,22 @@ import { useEffect, useRef } from 'react';
 
 const MAX_DEPTH = 200;
 
-// Single source of scroll progress: the depth number, plus --dive (0..1) and --header (0..1) for CSS.
-// Safari's scroll-driven animations proved unreliable, so nothing page-wide depends on them.
+// Single source of scroll progress: the depth number, --dive (0..1) for CSS, and the header's data-solid flag.
+// Variables go on the few elements that use them, not :root: a root change makes Safari restyle the whole page each frame.
 export default function DepthValue() {
   const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     let frame = 0;
+    const targets = [...document.querySelectorAll<HTMLElement>('.ocean, .depth, .site-header')];
+    const header = document.querySelector<HTMLElement>('.site-header');
     const update = () => {
       frame = 0;
-      const root = document.documentElement;
-      const max = root.scrollHeight - innerHeight;
+      const max = document.documentElement.scrollHeight - innerHeight;
       const progress = max > 0 ? Math.min(Math.max(scrollY / max, 0), 1) : 0;
-      root.style.setProperty('--dive', progress.toFixed(4));
-      root.style.setProperty('--header', Math.min(scrollY / 160, 1).toFixed(3));
+      for (const el of targets) el.style.setProperty('--dive', progress.toFixed(4));
+      // A time-based CSS transition fades the header; tying it to scroll position looked abrupt in Safari.
+      header?.toggleAttribute('data-solid', scrollY > 24);
       if (ref.current) ref.current.textContent = `−${Math.round(progress * MAX_DEPTH)} m`;
     };
     const onScroll = () => {

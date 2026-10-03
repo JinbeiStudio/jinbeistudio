@@ -22,12 +22,6 @@
   color-scheme: dark;
 }
 
-@property --ray-sway {
-  syntax: '<angle>';
-  inherits: false;
-  initial-value: 0deg;
-}
-
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 88px;
@@ -91,22 +85,16 @@ h3 {
   inset: 0;
   z-index: -2;
   pointer-events: none;
-  /* Viewport-sized water that darkens with --dive. A document-tall gradient doesn't paint in some Safari versions. */
-  --sink: calc(var(--dive, 0) * 140%);
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--surface), var(--abyss) min(var(--sink), 100%)) 0%,
-    color-mix(in srgb, #175560, var(--abyss) min(var(--sink), 100%)) 25%,
-    color-mix(in srgb, var(--shallow), var(--abyss) min(var(--sink), 100%)) 60%,
-    color-mix(in srgb, var(--mid), var(--abyss) min(var(--sink), 100%)) 100%
-  );
+  /* Static surface water; the dive darkens it through the overlay's opacity only, which the GPU composites without repainting. */
+  background: linear-gradient(180deg, var(--surface) 0%, #175560 25%, var(--shallow) 60%, var(--mid) 100%);
 }
 
 .ocean__abyss {
   position: absolute;
   inset: 0;
-  background: radial-gradient(120% 80% at 50% 120%, var(--abyss), #000 70%);
-  opacity: calc(var(--dive, 0) * 0.6);
+  background: var(--abyss);
+  opacity: min(calc(var(--dive, 0) * 1.4), 1);
+  will-change: opacity;
 }
 
 .snow {
@@ -121,13 +109,12 @@ h3 {
 .snow--far {
   animation: snow-drift 140s linear infinite;
 }
+/* No filter here: blurring these 2-screen-tall layers every frame cost more than everything else combined. */
 .snow--mid {
   animation: snow-drift 90s linear infinite;
-  filter: blur(0.5px);
 }
 .snow--near {
   animation: snow-drift 55s linear infinite;
-  filter: blur(1px);
 }
 
 @keyframes snow-drift {
@@ -340,18 +327,45 @@ h3 {
   isolation: isolate;
 }
 
-/* Fades in over the first scroll (--header), then darkens with the ocean (--dive). */
-.site-header::before {
+/* Turns solid once scrolled (data-solid, set by DepthValue), then darkens with the ocean (--dive).
+   Tint and blur radius transition instead of opacity: WebKit doesn't fade backdrop-filter with opacity smoothly. */
+.site-header::before,
+.site-header::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-color: color-mix(in srgb, rgb(2 12 16 / 0.88) calc(var(--dive, 0) * 100%), rgb(16 66 76 / 0.82));
+}
+
+.site-header::before {
+  background-color: rgb(16 66 76 / 0);
   background-image: linear-gradient(100deg, rgb(127 220 239 / 0.06), transparent 60%);
-  border-bottom: 1px solid var(--line);
+  background-size: 0 0;
+  border-bottom: 1px solid transparent;
+  backdrop-filter: blur(0) saturate(1);
+  transition:
+    background-color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease,
+    backdrop-filter 0.4s ease;
+}
+
+.site-header[data-solid]::before {
+  background-color: rgb(16 66 76 / 0.82);
+  background-size: auto;
+  border-bottom-color: var(--line);
   box-shadow: 0 10px 30px -12px rgb(1 8 11 / 0.7);
   backdrop-filter: blur(14px) saturate(1.3);
-  opacity: var(--header, 0);
+}
+
+.site-header::after {
+  background: rgb(2 12 16 / 0.85);
+  opacity: 0;
+  will-change: opacity;
+}
+
+.site-header[data-solid]::after {
+  opacity: var(--dive, 0);
 }
 
 .site-header__brand {
@@ -490,11 +504,13 @@ h3 {
   translate: -50% 0;
   transform-origin: 50% 0;
   background:
-    repeating-conic-gradient(from calc(150deg + var(--ray-sway)) at 50% 0%, transparent 0deg, rgb(200 245 250 / 0.13) 1.4deg, transparent 3.2deg, transparent 7deg),
-    repeating-conic-gradient(from calc(152deg - var(--ray-sway)) at 50% 0%, transparent 0deg, rgb(200 245 250 / 0.08) 2deg, transparent 4.5deg, transparent 11deg);
+    repeating-conic-gradient(from 150deg at 50% 0%, transparent 0deg, rgb(200 245 250 / 0.13) 1.4deg, transparent 3.2deg, transparent 7deg),
+    repeating-conic-gradient(from 152deg at 50% 0%, transparent 0deg, rgb(200 245 250 / 0.08) 2deg, transparent 4.5deg, transparent 11deg);
   mask-image: radial-gradient(60% 75% at 50% 0%, #000 0%, rgb(0 0 0 / 0.4) 50%, transparent 85%);
   filter: blur(4px);
   mix-blend-mode: screen;
+  /* The gradient is painted once and the layer is rotated on the GPU; animating the gradient itself repainted every frame. */
+  will-change: transform;
   animation: ray-sway 14s ease-in-out infinite alternate;
 }
 
@@ -507,10 +523,10 @@ h3 {
 
 @keyframes ray-sway {
   from {
-    --ray-sway: -4deg;
+    rotate: -3deg;
   }
   to {
-    --ray-sway: 4deg;
+    rotate: 3deg;
   }
 }
 

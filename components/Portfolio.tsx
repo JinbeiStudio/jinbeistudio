@@ -34,7 +34,10 @@ export default function Portfolio({ locale }: { locale: Locale }) {
       <Ocean depthLabel={t.depthLabel} />
       <SeaLife />
       <FishSchool />
-      <Header nav={t.nav} />
+      <Header
+        nav={t.nav}
+        depths={{ about: t.about.depth, experience: t.experience.depth, work: t.work.depth, contact: t.contact.depth }}
+      />
       <main>
         <Hero hero={t.hero} />
         <About about={t.about} />

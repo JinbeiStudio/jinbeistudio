@@ -1,12 +1,15 @@
 import Image from 'next/image';
 import type { Dictionary } from '@/lib/content';
+import MobileMenu from './MobileMenu';
 
-export default function Header({ nav }: { nav: Dictionary['nav'] }) {
+type Depths = { about: string; experience: string; work: string; contact: string };
+
+export default function Header({ nav, depths }: { nav: Dictionary['nav']; depths: Depths }) {
   const links = [
-    { href: '#about', label: nav.about },
-    { href: '#experience', label: nav.experience },
-    { href: '#work', label: nav.work },
-    { href: '#contact', label: nav.contact },
+    { href: '#about', label: nav.about, depth: depths.about },
+    { href: '#experience', label: nav.experience, depth: depths.experience },
+    { href: '#work', label: nav.work, depth: depths.work },
+    { href: '#contact', label: nav.contact, depth: depths.contact },
   ];
 
   return (
@@ -29,6 +32,7 @@ export default function Header({ nav }: { nav: Dictionary['nav'] }) {
         {nav.switchLang.toUpperCase()}
         <span className="sr-only"> — {nav.switchLabel}</span>
       </a>
+      <MobileMenu links={links} openLabel={nav.menuOpen} closeLabel={nav.menuClose} />
     </header>
   );
 }

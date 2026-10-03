@@ -488,6 +488,163 @@ h3 {
   box-shadow: 0 0 18px rgb(19 175 218 / 0.4);
 }
 
+/* ---------- Mobile "dive" menu ---------- */
+
+/* Header items stay above the open menu panel. */
+.site-header__brand,
+.lang-switch,
+.menu-toggle {
+  position: relative;
+  z-index: 1;
+}
+
+.menu-toggle {
+  display: none;
+  place-items: center;
+  /* Size the track to the icon, so the short bar right-aligns within the icon, not the button. */
+  justify-content: center;
+  align-content: center;
+  gap: 7px;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--glass);
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: var(--foam);
+  transition:
+    transform 0.4s cubic-bezier(0.3, 1.3, 0.5, 1),
+    width 0.3s;
+}
+
+.menu-toggle span:last-child {
+  width: 12px;
+  justify-self: end;
+}
+
+.menu-toggle[aria-expanded='true'] span:first-child {
+  transform: translateY(4.25px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded='true'] span:last-child {
+  width: 18px;
+  transform: translateY(-4.25px) rotate(-45deg);
+}
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  padding: 100px var(--gutter) 48px;
+  background:
+    radial-gradient(120% 60% at 50% 0%, rgb(19 175 218 / 0.18), transparent 60%),
+    linear-gradient(180deg, #0b2e36 0%, #04161c 55%, #01080b 100%);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.35s ease,
+    visibility 0.35s;
+}
+
+.mobile-menu.is-open {
+  opacity: 1;
+  visibility: visible;
+  /* Visible at once when opening (so the first link can take focus); only the opacity fades. */
+  transition:
+    opacity 0.35s ease,
+    visibility 0s;
+}
+
+/* A depth line runs down the list, like the experience timeline. */
+.mobile-menu__list {
+  position: relative;
+  display: grid;
+  gap: 28px;
+  margin: 0;
+  padding: 0 0 0 28px;
+  list-style: none;
+}
+
+.mobile-menu__list::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: linear-gradient(var(--cyan), var(--line) 80%, transparent);
+}
+
+.mobile-menu__list li {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.mobile-menu.is-open .mobile-menu__list li {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(0.08s + var(--i) * 70ms);
+}
+
+.mobile-menu__link {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  text-decoration: none;
+}
+
+.mobile-menu__link::before {
+  content: '';
+  position: absolute;
+  left: -28px;
+  top: 8px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--cyan);
+  background: var(--deep);
+  box-shadow: 0 0 12px var(--cyan);
+}
+
+.mobile-menu__depth {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: var(--cyan-soft);
+}
+
+.mobile-menu__label {
+  font-family: var(--display);
+  font-size: clamp(2rem, 9vw, 2.6rem);
+  line-height: 1.1;
+  color: var(--foam);
+}
+
+@media (max-width: 767px) {
+  .menu-toggle {
+    display: grid;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-menu {
+    display: none;
+  }
+}
+
 /* ---------- Hero: the surface ---------- */
 
 .hero {

@@ -33,7 +33,7 @@ export type Testimonial = {
 
 export type Dictionary = {
   meta: { title: string; description: string; ogLocale: string };
-  nav: { label: string; about: string; experience: string; work: string; contact: string; switchLabel: string; switchHref: string; switchLang: Locale };
+  nav: { label: string; menuOpen: string; menuClose: string; about: string; experience: string; work: string; contact: string; switchLabel: string; switchHref: string; switchLang: Locale };
   hero: {
     status: string;
     role: string;
@@ -115,7 +115,7 @@ export const en: Dictionary = {
       'Julien Gabriel, Senior Software Engineer. 10+ years in tech, building web and mobile products with Angular, React, Next.js and Symfony.',
     ogLocale: 'en_US',
   },
-  nav: { label: 'Main', about: 'About', experience: 'Experience', work: 'Work', contact: 'Contact', switchLabel: 'Français', switchHref: '/fr/', switchLang: 'fr' },
+  nav: { label: 'Main', menuOpen: 'Open menu', menuClose: 'Close menu', about: 'About', experience: 'Experience', work: 'Work', contact: 'Contact', switchLabel: 'Français', switchHref: '/fr/', switchLang: 'fr' },
   hero: {
     status: 'Available for freelance projects',
     role: 'Senior Software Engineer',
@@ -348,7 +348,7 @@ export const fr: Dictionary = {
       'Julien Gabriel, Senior Software Engineer : plus de 10 ans dans la tech à concevoir des produits web et mobiles avec Angular, React, Next.js et Symfony.',
     ogLocale: 'fr_FR',
   },
-  nav: { label: 'Navigation principale', about: 'À propos', experience: 'Parcours', work: 'Projets', contact: 'Contact', switchLabel: 'English', switchHref: '/', switchLang: 'en' },
+  nav: { label: 'Navigation principale', menuOpen: 'Ouvrir le menu', menuClose: 'Fermer le menu', about: 'À propos', experience: 'Parcours', work: 'Projets', contact: 'Contact', switchLabel: 'English', switchHref: '/', switchLang: 'en' },
   hero: {
     status: 'Disponible pour des missions freelance',
     role: 'Senior Software Engineer',

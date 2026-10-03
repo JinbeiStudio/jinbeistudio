@@ -75,6 +75,7 @@ const stacks = {
 };
 
 const images = {
+  avecoach: '/work/avecoach.webp',
   trocvelo: '/work/trocvelo.webp',
   upd: '/work/upd.webp',
 };
@@ -216,6 +217,15 @@ export const en: Dictionary = {
           { label: 'Radiation protection', icon: 'radiation' },
         ],
         href: 'https://www.winlassie.com/nos-logiciels/winlassie-online/',
+      },
+      {
+        name: 'Avé Coach',
+        kind: 'Website & CMS · Coaching',
+        summary:
+          'A custom website and CMS for an executive coach in the Paris region: she edits her texts and images from her own admin, pages are rendered server-side for SEO, and the contact form sends emails.',
+        stack: ['Node.js', 'Express', 'SQLite', 'JWT', 'Nodemailer'],
+        image: images.avecoach,
+        href: 'https://ave-coach.fr',
       },
       {
         name: 'Troc Vélo',
@@ -440,6 +450,15 @@ export const fr: Dictionary = {
           { label: 'Radioprotection', icon: 'radiation' },
         ],
         href: 'https://www.winlassie.com/nos-logiciels/winlassie-online/',
+      },
+      {
+        name: 'Avé Coach',
+        kind: 'Site & CMS · Coaching',
+        summary:
+          'Un site et un CMS sur mesure pour une coach de dirigeants en région parisienne : elle modifie ses textes et images depuis son propre espace d’administration, les pages sont générées côté serveur pour le SEO et le formulaire de contact envoie des emails.',
+        stack: ['Node.js', 'Express', 'SQLite', 'JWT', 'Nodemailer'],
+        image: images.avecoach,
+        href: 'https://ave-coach.fr',
       },
       {
         name: 'Troc Vélo',

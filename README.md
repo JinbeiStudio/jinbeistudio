@@ -2,7 +2,7 @@
 
 Portfolio of Julien Gabriel, Senior Software Engineer.
 
-- Next.js 16 (App Router, static export), React 19, TypeScript, Tailwind CSS 4
+- Next.js 16 (App Router, static export), React 19, TypeScript 6, Tailwind CSS 4, Node 24 (`.nvmrc`)
 - Animations are CSS-first (keyframes, `@property`, SVG, view-timeline reveals); one small scroll listener feeds the depth meter and darkening water, a canvas boids simulation draws the fish school
 - English at `/`, French at `/fr/`; all copy lives in `lib/content.ts`
 

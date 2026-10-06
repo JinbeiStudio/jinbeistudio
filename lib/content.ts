@@ -66,11 +66,12 @@ const socials: Link[] = [
   { label: 'GitHub', href: 'https://github.com/jinbeistudio' },
 ];
 
+// Each stack is ordered back-end to front-end.
 const stacks = {
-  imagine: ['Symfony', 'Angular', 'TypeScript', 'API Platform', 'Docker'],
-  antilop: ['React', 'Next.js', 'Symfony', 'React Native', 'Expo'],
-  cristalens: ['Laravel', 'Symfony', 'MySQL'],
-  jinbei: ['Wix', 'HTML', 'CSS', 'JavaScript'],
+  imagine: ['Symfony', 'Angular'],
+  antilop: ['Symfony', 'Next.js', 'React', 'React Native', 'Expo'],
+  cristalens: ['Symfony', 'Laravel'],
+  jinbei: ['Node.js', 'Express', 'Next.js', 'React', 'Wix'],
   ing: ['Project management', 'Change management'],
 };
 
@@ -156,6 +157,13 @@ export const en: Dictionary = {
         stack: stacks.imagine,
       },
       {
+        company: 'Jinbei Studio',
+        role: 'Freelance Full-stack Developer, founder',
+        period: '2018 — Today',
+        summary: 'Websites for small businesses and independents, from brief to launch. Full-time until 2020, then alongside my salaried roles.',
+        stack: stacks.jinbei,
+      },
+      {
         company: 'Antilop',
         role: 'Software Engineer',
         period: '2021 — 2023',
@@ -168,13 +176,6 @@ export const en: Dictionary = {
         period: '2020 — 2021',
         summary: 'Internal tools for a medical device manufacturer: HR information system, ERP and an e-CRF for clinical studies.',
         stack: stacks.cristalens,
-      },
-      {
-        company: 'Jinbei Studio',
-        role: 'Web Developer, founder',
-        period: '2018 — 2020',
-        summary: 'Websites for small businesses and independents, from brief to launch.',
-        stack: stacks.jinbei,
       },
       {
         company: 'ING Bank France',
@@ -389,6 +390,13 @@ export const fr: Dictionary = {
         stack: stacks.imagine,
       },
       {
+        company: 'Jinbei Studio',
+        role: 'Développeur full-stack freelance, fondateur',
+        period: '2018 — Aujourd’hui',
+        summary: 'Sites web pour des TPE et indépendants, du brief à la mise en ligne. À temps plein jusqu’en 2020, puis en parallèle de mes postes salariés.',
+        stack: stacks.jinbei,
+      },
+      {
         company: 'Antilop',
         role: 'Software Engineer',
         period: '2021 — 2023',
@@ -401,13 +409,6 @@ export const fr: Dictionary = {
         period: '2020 — 2021',
         summary: "Outils internes pour un fabricant de dispositifs médicaux : SIRH, ERP et e-CRF pour les études cliniques.",
         stack: stacks.cristalens,
-      },
-      {
-        company: 'Jinbei Studio',
-        role: 'Développeur web, fondateur',
-        period: '2018 — 2020',
-        summary: 'Sites web pour des TPE et indépendants, du brief à la mise en ligne.',
-        stack: stacks.jinbei,
       },
       {
         company: 'ING Bank France',

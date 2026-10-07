@@ -108,8 +108,8 @@ h3 {
   pointer-events: none;
 }
 
-/* Only phones and tablets tint their browser bars; on desktop it would just be a stripe. */
-@media not (pointer: coarse) {
+/* Only iOS Safari tints its bar from it (-webkit-touch-callout is Apple-only); elsewhere it would just be a stripe. */
+@supports not (-webkit-touch-callout: none) {
   .status-tint {
     display: none;
   }

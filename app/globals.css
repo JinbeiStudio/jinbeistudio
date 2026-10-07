@@ -98,7 +98,7 @@ h3 {
   will-change: opacity;
 }
 
-/* Safari skips invisible strips, so this one shows; its colour is the solid header's at the top of the page. */
+/* Safari skips invisible strips, so this one shows; DepthValue darkens it with the header as you dive. */
 .status-tint {
   position: fixed;
   inset: 0 0 auto;

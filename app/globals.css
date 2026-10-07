@@ -108,6 +108,13 @@ h3 {
   pointer-events: none;
 }
 
+/* Only phones and tablets tint their browser bars; on desktop it would just be a stripe. */
+@media not (pointer: coarse) {
+  .status-tint {
+    display: none;
+  }
+}
+
 .snow {
   position: absolute;
   top: 0;

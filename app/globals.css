@@ -33,7 +33,8 @@ body {
   min-height: 100vh;
   font-family: var(--sans);
   color: var(--text);
-  background: var(--abyss);
+  /* iOS Safari tints its toolbar with this colour; DepthValue keeps it matching the water as you dive. */
+  background: var(--mid);
   line-height: 1.65;
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;

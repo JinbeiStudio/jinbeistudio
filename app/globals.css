@@ -98,6 +98,23 @@ h3 {
   will-change: opacity;
 }
 
+/* Safari skips invisible strips, so this one shows; its colour is the solid header's at the top of the page. */
+.status-tint {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 31;
+  height: 6px;
+  background-color: #11454f;
+  pointer-events: none;
+}
+
+/* Only iOS Safari tints its bar from it (-webkit-touch-callout is Apple-only); elsewhere it would just be a stripe. */
+@supports not (-webkit-touch-callout: none) {
+  .status-tint {
+    display: none;
+  }
+}
+
 .snow {
   position: absolute;
   top: 0;

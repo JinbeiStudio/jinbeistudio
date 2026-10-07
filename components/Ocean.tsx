@@ -31,6 +31,8 @@ export default function Ocean({ depthLabel }: { depthLabel: string }) {
           <div key={l.className} className={l.className} style={{ boxShadow: l.shadow }} />
         ))}
       </div>
+      {/* iOS Safari tints its status bar from a fixed strip at the top edge. */}
+      <div className="status-tint" aria-hidden="true" />
       <div className="depth" aria-hidden="true">
         <span className="depth__label">{depthLabel}</span>
         <div className="depth__track">

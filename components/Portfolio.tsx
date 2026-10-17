@@ -1,4 +1,4 @@
-import { dictionaries, type Locale } from '@/lib/content';
+import { dictionaries, employer, type Locale } from '@/lib/content';
 import { siteUrl } from '@/lib/site';
 import About from './About';
 import Contact from './Contact';
@@ -15,15 +15,33 @@ import Work from './Work';
 
 export default function Portfolio({ locale }: { locale: Locale }) {
   const t = dictionaries[locale];
+  // The person and the studio they founded, linked by @id so search engines read them as one entity graph.
+  const person = `${siteUrl}/#person`;
+  const studio = `${siteUrl}/#studio`;
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Julien Gabriel',
-    jobTitle: 'Senior Software Engineer',
-    url: siteUrl,
-    image: `${siteUrl}/images/logo.png`,
-    sameAs: t.contact.links.map((l) => l.href),
-    knowsAbout: t.skills.groups.flatMap((g) => g.items),
+    '@graph': [
+      {
+        '@type': 'Person',
+        '@id': person,
+        name: 'Julien Gabriel',
+        jobTitle: t.hero.role,
+        url: siteUrl,
+        image: `${siteUrl}/images/logo.png`,
+        email: `mailto:${t.contact.email}`,
+        sameAs: t.contact.links.map((l) => l.href),
+        knowsAbout: t.skills.groups.flatMap((g) => g.items),
+        worksFor: [{ '@type': 'Organization', name: employer }, { '@id': studio }],
+      },
+      {
+        '@type': 'Organization',
+        '@id': studio,
+        name: 'Jinbei Studio',
+        url: siteUrl,
+        logo: `${siteUrl}/images/logo.png`,
+        founder: { '@id': person },
+      },
+    ],
   };
 
   return (

@@ -61,6 +61,8 @@ export type Dictionary = {
 };
 
 const email = 'julien@jinbeistudio.com';
+// Current employer: shown in the timeline and declared in the structured data.
+export const employer = 'Imagine Human';
 const socials: Link[] = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/juliengabrielfr/' },
   { label: 'GitHub', href: 'https://github.com/jinbeistudio' },
@@ -149,7 +151,7 @@ export const en: Dictionary = {
     stackLabel: 'Stack',
     jobs: [
       {
-        company: 'Imagine Human',
+        company: employer,
         role: 'Senior Software Engineer',
         period: '2023 — Today',
         summary:
@@ -382,7 +384,7 @@ export const fr: Dictionary = {
     stackLabel: 'Technologies',
     jobs: [
       {
-        company: 'Imagine Human',
+        company: employer,
         role: 'Senior Software Engineer',
         period: '2023 — Aujourd’hui',
         summary:

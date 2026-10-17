@@ -3,6 +3,9 @@ import { dictionaries, type Locale } from './content';
 
 export const siteUrl = 'https://jinbeistudio.com';
 
+// English is the default for visitors whose language has no version of its own.
+export const languageAlternates = { en: '/', fr: '/fr/', 'x-default': '/' };
+
 export function buildMetadata(locale: Locale): Metadata {
   const { meta } = dictionaries[locale];
   const path = locale === 'en' ? '/' : '/fr/';
@@ -12,7 +15,7 @@ export function buildMetadata(locale: Locale): Metadata {
     title: meta.title,
     description: meta.description,
     authors: [{ name: 'Julien Gabriel', url: siteUrl }],
-    alternates: { canonical: path, languages: { en: '/', fr: '/fr/' } },
+    alternates: { canonical: path, languages: languageAlternates },
     manifest: '/images/favicon/site.webmanifest',
     openGraph: {
       title: meta.title,

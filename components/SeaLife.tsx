@@ -26,7 +26,6 @@ const habitats: { section: string; kind: CreatureKind }[] = [
 
 const speed: Record<CreatureKind, [number, number]> = {
   shark: [18, 26],
-  blacktip: [18, 26],
   turtle: [28, 38],
   whale: [45, 60],
   manta: [24, 32],

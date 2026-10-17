@@ -3,12 +3,12 @@ import { round, seeded } from '@/lib/random';
 
 // Side and top-view illustrations, all drawn facing right; SeaLife mirrors them for leftward swims.
 
-export type CreatureKind = 'shark' | 'blacktip' | 'turtle' | 'whale' | 'manta' | 'orca' | 'jellyfish';
+export type CreatureKind = 'shark' | 'turtle' | 'whale' | 'manta' | 'orca' | 'jellyfish';
 
-export const creatureWidth: Record<CreatureKind, number> = { shark: 260, blacktip: 240, turtle: 130, whale: 580, manta: 200, orca: 330, jellyfish: 120 };
+export const creatureWidth: Record<CreatureKind, number> = { shark: 260, turtle: 130, whale: 580, manta: 200, orca: 330, jellyfish: 120 };
 
 // Height / width of each viewBox, so SeaLife can centre an animal on its spot instead of hanging it from its top edge.
-export const creatureAspect: Record<CreatureKind, number> = { shark: 80 / 200, blacktip: 70 / 200, turtle: 100 / 120, whale: 150 / 400, manta: 110 / 170, orca: 110 / 300, jellyfish: 230 / 120 };
+export const creatureAspect: Record<CreatureKind, number> = { shark: 80 / 200, turtle: 100 / 120, whale: 150 / 400, manta: 110 / 170, orca: 110 / 300, jellyfish: 230 / 120 };
 
 // Gradient ids are scoped per instance so an outgoing and incoming creature never share defs.
 function useIds<T extends string>(...names: T[]) {
@@ -76,62 +76,6 @@ function Shark() {
       </g>
       <circle cx="182" cy="35" r="2.1" fill="#05090b" />
       <circle cx="182.6" cy="34.4" r=".55" fill="#e6fbff" />
-    </svg>
-  );
-}
-
-// Blacktip reef shark: kept as an alternative to the great white; not assigned to a section.
-function BlacktipShark() {
-  const id = useIds('skin', 'fin', 'tip', 'light');
-  const body =
-    'M197 37C188 25 168 19 141 19L117 1L108 21C86 23 66 27 46 31V42C70 46 96 50 117 50L130 64L137 50C162 50 186 46 197 37Z';
-
-  return (
-    <svg viewBox="0 0 200 70">
-      <defs>
-        {/* Countershading: dark back, pale belly, the way sharks hide from above and below. */}
-        <linearGradient id={id.skin} gradientUnits="userSpaceOnUse" x1="0" y1="18" x2="0" y2="52">
-          <stop offset="0" stopColor="#4d7f88" />
-          <stop offset=".3" stopColor="#2a5560" />
-          <stop offset=".58" stopColor="#1d4048" />
-          <stop offset=".68" stopColor="#7fa8ae" />
-          <stop offset="1" stopColor="#c4dde0" />
-        </linearGradient>
-        <linearGradient id={id.fin} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#30606a" />
-          <stop offset="1" stopColor="#173840" />
-        </linearGradient>
-        {/* Black tips, as on a blacktip reef shark. */}
-        <linearGradient id={id.tip} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#081418" />
-          <stop offset=".35" stopColor="#1f4850" />
-          <stop offset=".65" stopColor="#1f4850" />
-          <stop offset="1" stopColor="#081418" />
-        </linearGradient>
-        <linearGradient id={id.light} x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#e6fbff" stopOpacity="0" />
-          <stop offset=".6" stopColor="#e6fbff" stopOpacity=".55" />
-          <stop offset="1" stopColor="#e6fbff" stopOpacity=".2" />
-        </linearGradient>
-      </defs>
-
-      <g className="creature-tail" style={{ transformOrigin: '46px 36px' }}>
-        <path d="M50 33L18 6L29 34L15 62L50 40Z" fill={url(id.tip)} {...rim} />
-      </g>
-      <path d="M72 44L62 56L58 45Z" fill={url(id.fin)} />
-      <path d="M70 28L62 18L58 29Z" fill={url(id.fin)} />
-      <path d={body} fill={url(id.skin)} {...rim} />
-      <path d="M117 1L108 21L127 20Z" fill="#0b1c21" opacity=".55" />
-      <path d="M116 49L132 66L138 50Z" fill={url(id.fin)} {...rim} />
-      <path d="M128 60L132 66L134 59Z" fill="#081418" />
-      <path d="M54 32C90 25 140 18 186 28" fill="none" stroke={url(id.light)} strokeWidth="1.4" strokeLinecap="round" />
-      <path d="M60 37C100 34 140 33 176 34" fill="none" stroke="#c9f0f4" strokeOpacity=".18" strokeWidth=".8" />
-      <g fill="none" stroke="#0a1c21" strokeOpacity=".7" strokeWidth="1" strokeLinecap="round">
-        <path d="M150 29C147 35 147 41 150 46M155 28C152 34 152 41 155 46M160 28C157 34 157 40 160 45M165 28C162 34 162 40 165 44M170 29C167 34 167 39 170 43" />
-        <path d="M184 44C180 46 175 46 171 45" strokeOpacity=".35" />
-      </g>
-      <circle cx="181" cy="31" r="2" fill="#061418" />
-      <circle cx="181.6" cy="30.4" r=".6" fill="#e6fbff" />
     </svg>
   );
 }
@@ -406,4 +350,4 @@ function Manta() {
   );
 }
 
-export const creatures: Record<CreatureKind, () => React.JSX.Element> = { shark: Shark, blacktip: BlacktipShark, turtle: Turtle, whale: Whale, manta: Manta, orca: Orca, jellyfish: Jellyfish };
+export const creatures: Record<CreatureKind, () => React.JSX.Element> = { shark: Shark, turtle: Turtle, whale: Whale, manta: Manta, orca: Orca, jellyfish: Jellyfish };

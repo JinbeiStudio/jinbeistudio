@@ -51,7 +51,9 @@ export default function MobileMenu({ links, openLabel, closeLabel }: { links: Me
     setOpen(false);
     requestAnimationFrame(() => {
       document.documentElement.style.overflow = '';
-      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+      // JS-requested smooth scrolling bypasses the CSS reduced-motion override, so check it here too.
+      const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.querySelector(href)?.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto' });
       history.replaceState(null, '', href);
     });
   };

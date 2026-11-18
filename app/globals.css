@@ -221,52 +221,6 @@ h3 {
   }
 }
 
-.creature-tail {
-  animation: creature-tail 1.4s ease-in-out infinite alternate;
-}
-
-.creature-tail--slow {
-  animation-duration: 4s;
-}
-
-@keyframes creature-tail {
-  from {
-    transform: skewY(-10deg) scaleX(0.92);
-  }
-  to {
-    transform: skewY(10deg) scaleX(0.92);
-  }
-}
-
-.creature-flipper {
-  animation: creature-flipper 2.6s ease-in-out infinite alternate;
-}
-
-.creature-flipper--alt {
-  animation-delay: -1.3s;
-}
-
-@keyframes creature-flipper {
-  from {
-    rotate: -14deg;
-  }
-  to {
-    rotate: 16deg;
-  }
-}
-
-.creature-wings {
-  transform-origin: 50% 50%;
-  transform-box: fill-box;
-  animation: creature-wings 3.2s ease-in-out infinite;
-}
-
-@keyframes creature-wings {
-  50% {
-    transform: scaleY(0.55);
-  }
-}
-
 /* Whale, manta, great white and turtle keep more of their colour and contrast; their detail washes out first. */
 .sea-life__visitor--whale,
 .sea-life__visitor--manta,
@@ -281,43 +235,11 @@ h3 {
   filter: blur(calc(var(--blur) * 0.5)) drop-shadow(0 0 14px rgb(127 220 239 / 0.55));
 }
 
-.jelly-bell {
-  transform-box: fill-box;
-  transform-origin: 50% 0;
-  animation: jelly-pulse 2.8s ease-in-out infinite;
-}
-
-.jelly-trail {
-  transform-box: fill-box;
-  transform-origin: 50% 0;
-  animation: jelly-trail 2.8s ease-in-out infinite;
-}
-
-.jelly-lights circle {
+.jelly-lights path {
   animation: twinkle 2.8s ease-in-out infinite;
 }
-.jelly-lights circle:nth-child(2n) {
+.jelly-lights path:nth-child(2n) {
   animation-delay: -1.4s;
-}
-
-@keyframes jelly-pulse {
-  0%,
-  100% {
-    transform: scale(1, 1);
-  }
-  45% {
-    transform: scale(1.1, 0.86);
-  }
-}
-
-@keyframes jelly-trail {
-  0%,
-  100% {
-    transform: skewX(0) scaleY(1);
-  }
-  45% {
-    transform: skewX(-4deg) scaleY(1.04);
-  }
 }
 
 /* ---------- Depth meter ---------- */
@@ -809,67 +731,6 @@ h3 {
   }
 }
 
-.shark-tail,
-.shark-fin {
-  transform-box: view-box;
-}
-
-.shark-tail {
-  transform-origin: 100px 396px;
-  animation: tail-beat 3.4s ease-in-out infinite alternate;
-}
-
-@keyframes tail-beat {
-  from {
-    rotate: -13deg;
-  }
-  to {
-    rotate: 13deg;
-  }
-}
-
-.shark-fin {
-  animation: fin 6.8s ease-in-out infinite alternate;
-}
-.shark-fin--left {
-  transform-origin: 60px 138px;
-}
-.shark-fin--right {
-  transform-origin: 140px 138px;
-  animation-delay: -3.4s;
-}
-
-@keyframes fin {
-  to {
-    rotate: 6deg;
-  }
-}
-
-/* The body bends at two joints with a phase lag, giving a travelling S-wave down to the tail. */
-.ws-mid,
-.ws-rear {
-  transform-box: view-box;
-  animation: ws-bend 4s ease-in-out infinite alternate;
-}
-
-.ws-mid {
-  transform-origin: 100px 200px;
-}
-
-.ws-rear {
-  transform-origin: 100px 300px;
-  animation-delay: -0.7s;
-}
-
-@keyframes ws-bend {
-  from {
-    rotate: -3deg;
-  }
-  to {
-    rotate: 3deg;
-  }
-}
-
 /* Light from the surface drifting down its back. */
 .ws-dapples ellipse {
   animation: ws-dapple 9s ease-in-out infinite;
@@ -906,16 +767,6 @@ h3 {
   to {
     translate: 3px -4px;
   }
-}
-
-.shark-spots circle:nth-child(7n) {
-  animation: twinkle 4.2s ease-in-out infinite;
-}
-.shark-spots circle:nth-child(11n) {
-  animation: twinkle 5.6s ease-in-out -2s infinite;
-}
-.shark-spots circle:nth-child(13n) {
-  animation: twinkle 3.6s ease-in-out -1s infinite;
 }
 
 @keyframes twinkle {
@@ -2249,8 +2100,6 @@ h3 {
   .reveal,
   .quote,
   .hero__shark-wrap,
-  .ws-mid,
-  .ws-rear,
   .sea-life {
     animation: none !important;
   }

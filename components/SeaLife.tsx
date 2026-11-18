@@ -1,7 +1,10 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { creatureAspect, creatureWidth, creatures, type CreatureKind } from './Creatures';
+import { aspect, creatures } from '@/lib/sea';
+import SeaCreature from './SeaCreature';
+
+type CreatureKind = 'shark' | 'turtle' | 'whale' | 'manta' | 'orca' | 'jellyfish';
 
 type Visitor = {
   id: number;
@@ -23,15 +26,6 @@ const habitats: { section: string; kind: CreatureKind }[] = [
   { section: '#testimonials', kind: 'whale' },
   { section: '#contact', kind: 'jellyfish' },
 ];
-
-const speed: Record<CreatureKind, [number, number]> = {
-  shark: [18, 26],
-  turtle: [28, 38],
-  whale: [45, 60],
-  manta: [24, 32],
-  orca: [22, 30],
-  jellyfish: [60, 80],
-};
 
 const between = (min: number, max: number) => min + Math.random() * (max - min);
 
@@ -92,9 +86,9 @@ export default function SeaLife() {
       // Probe half a screen ahead of the middle of the viewport; fall back to what's on screen.
       const habitat = habitatAt(innerHeight * (0.5 + direction * 0.5)) ?? habitatAt(innerHeight * 0.5);
       if (!habitat) return;
-      const duration = between(...speed[habitat.kind]);
+      const duration = between(...creatures[habitat.kind].speed);
       const scale = between(0.85, 1.3);
-      const height = creatureWidth[habitat.kind] * scale * creatureAspect[habitat.kind];
+      const height = creatures[habitat.kind].width * scale * aspect(creatures[habitat.kind]);
       const next: Visitor = {
         id: now,
         kind: habitat.kind,
@@ -114,7 +108,6 @@ export default function SeaLife() {
 
   if (!visitor) return <div className="sea-life" aria-hidden="true" />;
 
-  const Creature = creatures[visitor.kind];
   // Smaller means farther away: even softer and fainter.
   const distance = Math.max(0, 1.3 - visitor.scale);
 
@@ -126,7 +119,7 @@ export default function SeaLife() {
         style={
           {
             top: visitor.top,
-            width: creatureWidth[visitor.kind] * visitor.scale,
+            width: creatures[visitor.kind].width * visitor.scale,
             '--swim': `${visitor.duration}s`,
             animationDelay: `-${visitor.head.toFixed(1)}s`,
             '--blur': `${((0.6 + distance * 1.2) * (blurFactor[visitor.kind] ?? 1)).toFixed(2)}px`,
@@ -141,7 +134,7 @@ export default function SeaLife() {
         }}
       >
         <div className={`sea-life__body sea-life__body--${visitor.kind}`}>
-          <Creature />
+          <SeaCreature kind={visitor.kind} />
         </div>
       </div>
     </div>
